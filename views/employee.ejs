@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Table - business 360°</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="assets/css/Billing-Table-with-Add-Row--Fixed-Header-Feature.css">
+    <link rel="stylesheet" href="assets/css/Contact-Form-by-Moorcam.css">
+    <link rel="stylesheet" href="assets/css/Features-Cards-icons.css">
+    <link rel="stylesheet" href="assets/css/Pretty-Table-tables.css">
+    <link rel="stylesheet" href="assets/css/Pretty-Table.css">
+    <link rel="stylesheet" href="assets/css/Profile-Edit-Form-styles.css">
+    <link rel="stylesheet" href="assets/css/Profile-Edit-Form.css">
+    <style>
+        /* Ensure icons are visible */
+        .bi, .fas, .far, .fab {
+            font-family: 'bootstrap-icons', 'Font Awesome 5 Free', 'Font Awesome 5 Brands' !important;
+            display: inline-block;
+            font-style: normal;
+            font-variant: normal;
+            text-rendering: auto;
+            line-height: 1;
+        }
+        
+        /* Button group improvements */
+        .btn-group-sm .btn {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+            border-radius: 0.2rem;
+        }
+        
+        .btn-group .btn:not(:last-child) {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        
+        .btn-group .btn:not(:first-child) {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+        
+        /* Ensure action icons are centered */
+        .btn i {
+            font-size: 0.875rem;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <nav class="navbar align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 navbar-dark">
+            <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
+                    <div class="sidebar-brand-text mx-3"><span>business 360°</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/profile"><i class="fas fa-user"></i><span>Profile</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/employee"><i class="fas fa-table"></i><span>Employee</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/inventory"><i class="fas fa-boxes fa-fw me-2"></i><span>Inventory</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/billing"> <i class="fas fa-file-invoice-dollar fa-fw me-2"></i><span>Billing</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/sales"> <i class="fas fa-chart-bar fa-fw me-2"></i><span>Sales dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/finance"><i class="fas fa-money-bill-wave fa-fw me-2"></i><span>fiance dashboard</span></a></li>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+            </div>
+        </nav>
+       <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <div class="container-fluid">
+                        <!-- Sidebar Toggle -->
+                        <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        
+                        <!-- Greeting - Responsive -->
+                        <div class="d-flex align-items-center flex-grow-1">
+                            <div class="me-3">
+                                <h5 class="mb-0 text-gray-800 d-flex align-items-center">
+                                   <i class="fas fa-sun text-warning me-2" id="greetingIcon"></i>
+                                    <span class="d-none d-sm-inline" id="greetingText">Good Morning,</span>
+                                 </h5>
+                                <small class="text-muted d-none d-md-inline">Welcome back to your business dashboard</small>
+                            </div>
+                        </div>
+                        
+                        <!-- Right side of navbar -->
+                        <ul class="navbar-nav ms-auto">
+                            <!-- Calendar - Responsive -->
+                            <li class="nav-item">
+                               <div class="d-flex align-items-center px-3 py-2 bg-light rounded-pill" id="dateContainer">
+                                    <i class="fas fa-calendar-day text-primary me-2"></i>
+                                    <span class="me-1 fw-semibold d-none d-sm-inline">Today:</span>
+                                    <span class="d-none d-md-inline" id="fullDate">Thursday, July 10, 2025</span>
+                                    <span class="d-inline d-md-none" id="shortDate">Jul 10</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav> 
+                <!--starting -->
+                <div class="container-fluid mt-3">
+                    <div class="row">
+                        <div class="col">
+                            <nav class="navbar navbar-expand-lg navbar-white bg-white shadow rounded mb-4 border border-2 border-primary-subtle">
+                                <div class="container-fluid">
+                                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#employeeNavbar" aria-controls="employeeNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon"></span>
+                                    </button>
+                                    <div class="collapse navbar-collapse" id="employeeNavbar">
+                                        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-2">
+                                            <li class="nav-item">
+                                                <a class="nav-link active fw-bold text-primary px-3" href="#" aria-current="page">
+                                                    <i class="fas fa-users me-1"></i>Employees
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link fw-semibold px-3" href="/new_emp">
+                                                    <i class="fas fa-user-plus me-1"></i>Add Employee
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link fw-semibold px-3" href="/att_emp">
+                                                    <i class="fas fa-calendar-check me-1"></i>Attendance
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link fw-semibold px-3" href="#" id="salaryManagementLink">
+                                                    <i class="fas fa-money-bill-alt me-1"></i>Salary
+                                                </a>
+                                            </li>
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link fw-semibold px-3 dropdown-toggle" href="#" id="employeeProfileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fas fa-id-card me-1"></i>Employee Profile
+                                                </a>
+                                                <ul class="dropdown-menu" aria-labelledby="employeeProfileDropdown">
+                                                    <% if (typeof employees !== 'undefined' && employees.length > 0) { %>
+                                                        <% employees.forEach(emp => { %>
+                                                            <li><a class="dropdown-item" href="/emp_dt/<%= emp.id %>"><%= emp.name %></a></li>
+                                                        <% }); %>
+                                                    <% } else { %>
+                                                        <li><a class="dropdown-item" href="#">No employees found</a></li>
+                                                    <% } %>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                        <form class="d-flex ms-lg-3 mt-2 mt-lg-0" role="search">
+                                            <input class="form-control me-2 border-primary-subtle" type="search" placeholder="Search employee" aria-label="Search">
+                                            <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Employee Table Section -->
+                <div class="container-fluid">
+                    <h3 class="text-dark mb-4">Employees</h3>
+                    <div class="card shadow">
+                        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                            <p class="text-primary m-0 fw-bold">Employee Information</p>
+                            <a href="/employee/add" class="btn btn-primary btn-sm">Add New Employee</a>
+                        </div>
+                        <div class="card-body">
+                            <% if (typeof error !== 'undefined' && error) { %>
+                                <div class="alert alert-danger" role="alert">
+                                    <%= error %>
+                                </div>
+                            <% } %>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover" id="employeeTable">
+                                    <thead class="table-primary">
+                                        <tr>
+                                            <th><i class="fas fa-id-badge me-1"></i>ID</th>
+                                            <th><i class="fas fa-user me-1"></i>Name</th>
+                                            <th><i class="fas fa-envelope me-1"></i>Email</th>
+                                            <th><i class="fas fa-phone me-1"></i>Phone</th>
+                                            <th><i class="fas fa-building me-1"></i>Department</th>
+                                            <th><i class="fas fa-rupee-sign me-1"></i>Salary</th>
+                                            <th><i class="fas fa-calendar-alt me-1"></i>Joining Date</th>
+                                            <th><i class="fas fa-info-circle me-1"></i>Status</th>
+                                            <th><i class="fas fa-cogs me-1"></i>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% if (typeof employees !== 'undefined' && employees.length > 0) { %>
+                                            <% employees.forEach(employee => { %>
+                                                <tr>
+                                                    <td><%= employee.id %></td>
+                                                    <td><%= employee.name %></td>
+                                                    <td><%= employee.email %></td>
+                                                    <td><%= employee.phone || '-' %></td>
+                                                    <td><%= employee.department || '-' %></td>
+                                                    <td>₹<%= employee.salary ? parseFloat(employee.salary).toFixed(2) : '0.00' %></td>
+                                                    <td><%= employee.date_of_joining ? new Date(employee.date_of_joining).toLocaleDateString() : '-' %></td>
+                                                    <td>
+                                                        <span class="badge <%= employee.status === 'Active' ? 'bg-success' : (employee.status === 'On Leave' ? 'bg-warning' : 'bg-danger') %>">
+                                                            <%= employee.status %>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <div class="btn-group btn-group-sm">
+                                                            <a href="/employee/edit/<%= employee.id %>" class="btn btn-primary" title="Edit Employee">
+                                                                <i class="fas fa-edit"></i>
+                                                            </a>
+                                                            <button class="btn btn-info view-details" data-id="<%= employee.id %>" title="View Details">
+                                                                <i class="fas fa-eye"></i>
+                                                            </button>
+                                                            <a href="/emp_dt/<%= employee.id %>" class="btn btn-success" title="Employee Dashboard">
+                                                                <i class="fas fa-tachometer-alt"></i>
+                                                            </a>
+                                                            <button class="btn btn-danger delete-employee" data-id="<%= employee.id %>" title="Delete Employee">
+                                                                <i class="fas fa-trash"></i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            <% }); %>
+                                        <% } else { %>
+                                            <tr>
+                                                <td colspan="9" class="text-center">No employees found</td>
+                                            </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Employee Details Modal -->
+                <div class="modal fade" id="employeeDetailsModal" tabindex="-1" aria-labelledby="employeeDetailsModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="employeeDetailsModalLabel">Employee Details</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="employeeDetailsContent">
+                                Loading...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Salary Management Modal -->
+                <div class="modal fade" id="salaryManagementModal" tabindex="-1" aria-labelledby="salaryManagementModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header bg-primary text-white">
+                                <h5 class="modal-title" id="salaryManagementModalLabel">Salary Management</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <ul class="nav nav-tabs" id="salaryTabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="salary-list-tab" data-bs-toggle="tab" data-bs-target="#salary-list-tab-pane" type="button" role="tab" aria-controls="salary-list-tab-pane" aria-selected="true">Salary List</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="salary-payment-tab" data-bs-toggle="tab" data-bs-target="#salary-payment-tab-pane" type="button" role="tab" aria-controls="salary-payment-tab-pane" aria-selected="false">Record Payment</button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content pt-3" id="salaryTabsContent">
+                                    <!-- Salary List Tab -->
+                                    <div class="tab-pane fade show active" id="salary-list-tab-pane" role="tabpanel" aria-labelledby="salary-list-tab" tabindex="0">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-hover" id="salaryTable">
+                                                <thead class="table-primary">
+                                                    <tr>
+                                                        <th><i class="fas fa-id-badge me-1"></i>Employee ID</th>
+                                                        <th><i class="fas fa-user me-1"></i>Name</th>
+                                                        <th><i class="fas fa-calendar-alt me-1"></i>Month/Year</th>
+                                                        <th><i class="fas fa-rupee-sign me-1"></i>Base Salary</th>
+                                                        <th><i class="fas fa-wallet me-1"></i>Net Salary</th>
+                                                        <th><i class="fas fa-check-circle me-1"></i>Payment Status</th>
+                                                        <th><i class="fas fa-calendar-check me-1"></i>Payment Date</th>
+                                                        <th><i class="fas fa-cogs me-1"></i>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="salaryTableBody">
+                                                    <tr>
+                                                        <td colspan="8" class="text-center">Loading salary data...</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Record Payment Tab -->
+                                    <div class="tab-pane fade" id="salary-payment-tab-pane" role="tabpanel" aria-labelledby="salary-payment-tab" tabindex="0">
+                                        <div class="card border-primary shadow-sm">
+                                            <div class="card-header bg-primary bg-opacity-10">
+                                                <h5 class="card-title mb-0"><i class="fas fa-money-check-alt me-2"></i>Salary Payment Record</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <form id="recordPaymentForm">
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <label for="employeeSelect" class="form-label"><i class="fas fa-user me-1"></i> Select Employee</label>
+                                                    <select class="form-select" id="employeeSelect" required>
+                                                        <option value="">Choose employee</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="monthYearSelect" class="form-label"><i class="fas fa-calendar-alt me-1"></i> Month/Year</label>
+                                                    <input type="month" class="form-control" id="monthYearSelect" required>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <label for="baseSalary" class="form-label"><i class="fas fa-rupee-sign me-1"></i> Base Salary (₹)</label>
+                                                    <input type="number" class="form-control" id="baseSalary" step="0.01" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="bonus" class="form-label"><i class="fas fa-gift me-1"></i> Bonus (₹)</label>
+                                                    <input type="number" class="form-control" id="bonus" step="0.01" value="0.00">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <label for="deductions" class="form-label"><i class="fas fa-minus-circle me-1"></i> Deductions (₹)</label>
+                                                    <input type="number" class="form-control" id="deductions" step="0.01" value="0.00">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="leaveDeduction" class="form-label"><i class="fas fa-calendar-times me-1"></i> Leave Deduction (₹)</label>
+                                                    <input type="number" class="form-control" id="leaveDeduction" step="0.01" value="0.00">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <label for="netSalary" class="form-label"><i class="fas fa-calculator me-1"></i> Net Salary (₹)</label>
+                                                    <input type="number" class="form-control" id="netSalary" step="0.01" readonly>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="finalSalary" class="form-label"><i class="fas fa-wallet me-1"></i> Final Salary (₹)</label>
+                                                    <input type="number" class="form-control" id="finalSalary" step="0.01" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <label for="paymentDate" class="form-label"><i class="fas fa-calendar-day me-1"></i> Payment Date</label>
+                                                    <input type="date" class="form-control" id="paymentDate" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="paymentStatus" class="form-label"><i class="fas fa-check-circle me-1"></i> Payment Status</label>
+                                                    <select class="form-select" id="paymentStatus" required>
+                                                        <option value="Paid">Paid</option>
+                                                        <option value="Pending">Pending</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="d-grid gap-2 mt-4">
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="fas fa-save me-1"></i> Record Payment
+                                                </button>
+                                            </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- footer start from here -->
+                <footer class="bg-white sticky-footer">
+                    <div class="container my-auto">
+                        <div class="text-center my-auto copyright"><span>Copyright © business 360° 2025</span></div>
+                    </div>
+                </footer>
+            </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/Billing-Table-with-Add-Row--Fixed-Header-Feature-Billing-Table-with-Add-Row--Fixed-Header.js"></script>
+    <script src="assets/js/Profile-Edit-Form-profile.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/topnav.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // View employee details
+            const viewButtons = document.querySelectorAll('.view-details');
+            viewButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const employeeId = this.getAttribute('data-id');
+                    const modal = new bootstrap.Modal(document.getElementById('employeeDetailsModal'));
+                    
+                    // Show modal with loading message
+                    modal.show();
+                    
+                    // Fetch employee details
+                    fetch(`/employee/details/${employeeId}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Employee not found');
+                            }
+                            return response.json();
+                        })
+                        .then(employee => {
+                            const content = document.getElementById('employeeDetailsContent');
+                            content.innerHTML = `
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${employee.name}</h5>
+                                        <p class="card-text"><strong>Email:</strong> ${employee.email}</p>
+                                        <p class="card-text"><strong>Phone:</strong> ${employee.phone || 'N/A'}</p>
+                                        <p class="card-text"><strong>Department:</strong> ${employee.department || 'N/A'}</p>
+                                        <p class="card-text"><strong>Salary:</strong> ₹${employee.salary ? parseFloat(employee.salary).toFixed(2) : '0.00'}</p>
+                                        <p class="card-text"><strong>Joining Date:</strong> ${employee.date_of_joining ? new Date(employee.date_of_joining).toLocaleDateString() : 'N/A'}</p>
+                                        <p class="card-text"><strong>Status:</strong> ${employee.status}</p>
+                                    </div>
+                                </div>
+                            `;
+                        })
+                        .catch(error => {
+                            const content = document.getElementById('employeeDetailsContent');
+                            content.innerHTML = `<div class="alert alert-danger">${error.message}</div>`;
+                        });
+                });
+            });
+            
+            // Delete employee
+            const deleteButtons = document.querySelectorAll('.delete-employee');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const employeeId = this.getAttribute('data-id');
+                    if (confirm('Are you sure you want to delete this employee?')) {
+                        fetch(`/employee/delete/${employeeId}`, {
+                            method: 'DELETE'
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Failed to delete employee');
+                            }
+                            window.location.reload();
+                        })
+                        .catch(error => {
+                            alert(error.message);
+                        });
+                    }
+                });
+            });
+
+            // Salary Management
+            const salaryManagementLink = document.getElementById('salaryManagementLink');
+            const salaryModal = new bootstrap.Modal(document.getElementById('salaryManagementModal'));
+            
+            // Open Salary Management Modal
+            salaryManagementLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                loadSalaryData();
+                populateEmployeeSelect();
+                salaryModal.show();
+            });
+
+            // Load Salary Data
+            function loadSalaryData() {
+                const tableBody = document.getElementById('salaryTableBody');
+                tableBody.innerHTML = '<tr><td colspan="8" class="text-center">Loading salary data...</td></tr>';
+                
+                fetch('/employee/salary/list')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to load salary data');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.length === 0) {
+                            tableBody.innerHTML = '<tr><td colspan="8" class="text-center">No salary records found</td></tr>';
+                            return;
+                        }
+                        
+                        tableBody.innerHTML = '';
+                        data.forEach(record => {
+                            const paymentStatus = record.payment_date ? 'Paid' : 'Pending';
+                            const paymentDate = record.payment_date ? new Date(record.payment_date).toLocaleDateString() : 'Not paid yet';
+                            
+                            tableBody.innerHTML += `
+                                <tr>
+                                    <td>${record.employee_id}</td>
+                                    <td>${record.employee_name}</td>
+                                    <td>${record.month_year}</td>
+                                    <td>₹${parseFloat(record.base_salary).toFixed(2)}</td>
+                                    <td>₹${parseFloat(record.final_salary).toFixed(2)}</td>
+                                    <td>
+                                        <span class="badge ${paymentStatus === 'Paid' ? 'bg-success' : 'bg-warning'}">
+                                            ${paymentStatus}
+                                        </span>
+                                    </td>
+                                    <td>${paymentDate}</td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm">
+                                            <button class="btn btn-primary edit-salary" data-id="${record.id}" title="Edit Salary"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-success mark-paid" data-id="${record.id}" title="Mark as Paid" ${paymentStatus === 'Paid' ? 'disabled' : ''}>
+                                                <i class="fas fa-money-check-alt"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            `;
+                        });
+                        
+                        // Add event listeners to the newly created buttons
+                        addSalaryButtonEventListeners();
+                    })
+                    .catch(error => {
+                        tableBody.innerHTML = `<tr><td colspan="8" class="text-center text-danger">${error.message}</td></tr>`;
+                    });
+            }
+
+            // Populate Employee Select Dropdown
+            function populateEmployeeSelect() {
+                const selectElement = document.getElementById('employeeSelect');
+                
+                // Clear existing options except the first one
+                while(selectElement.options.length > 1) {
+                    selectElement.remove(1);
+                }
+                
+                fetch('/employee/list')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to load employees');
+                        }
+                        return response.json();
+                    })
+                    .then(employees => {
+                        employees.forEach(emp => {
+                            const option = document.createElement('option');
+                            option.value = emp.id;
+                            option.textContent = `${emp.id} - ${emp.name}`;
+                            option.setAttribute('data-salary', emp.salary || 0);
+                            selectElement.appendChild(option);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error loading employees:', error);
+                    });
+            }
+
+            // Add event listeners to salary table buttons
+            function addSalaryButtonEventListeners() {
+                // Edit salary
+                document.querySelectorAll('.edit-salary').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const salaryId = this.getAttribute('data-id');
+                        // Switch to payment tab
+                        document.getElementById('salary-payment-tab').click();
+                        
+                        // Load salary details
+                        fetch(`/employee/salary/${salaryId}`)
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Failed to load salary details');
+                                }
+                                return response.json();
+                            })
+                            .then(salary => {
+                                // Pre-fill the form
+                                document.getElementById('employeeSelect').value = salary.employee_id;
+                                document.getElementById('monthYearSelect').value = salary.month_year;
+                                document.getElementById('baseSalary').value = salary.base_salary;
+                                document.getElementById('bonus').value = salary.bonus;
+                                document.getElementById('deductions').value = salary.deductions;
+                                document.getElementById('leaveDeduction').value = salary.leave_deduction;
+                                document.getElementById('netSalary').value = salary.net_salary;
+                                document.getElementById('finalSalary').value = salary.final_salary;
+                                
+                                if (salary.payment_date) {
+                                    document.getElementById('paymentDate').value = new Date(salary.payment_date).toISOString().split('T')[0];
+                                    document.getElementById('paymentStatus').value = 'Paid';
+                                } else {
+                                    document.getElementById('paymentDate').value = new Date().toISOString().split('T')[0];
+                                    document.getElementById('paymentStatus').value = 'Pending';
+                                }
+                                
+                                // Add salary ID to the form
+                                const form = document.getElementById('recordPaymentForm');
+                                form.setAttribute('data-salary-id', salaryId);
+                            })
+                            .catch(error => {
+                                alert(error.message);
+                            });
+                    });
+                });
+                
+                // Mark paid
+                document.querySelectorAll('.mark-paid').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const salaryId = this.getAttribute('data-id');
+                        if (confirm('Are you sure you want to mark this salary as paid?')) {
+                            const today = new Date().toISOString().split('T')[0];
+                            
+                            fetch(`/employee/salary/${salaryId}/pay`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ payment_date: today })
+                            })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Failed to update payment status');
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                alert('Salary marked as paid successfully');
+                                loadSalaryData(); // Refresh the table
+                            })
+                            .catch(error => {
+                                alert(error.message);
+                            });
+                        }
+                    });
+                });
+            }
+
+            // Calculate Net and Final Salary
+            function calculateSalary() {
+                const baseSalary = parseFloat(document.getElementById('baseSalary').value) || 0;
+                const bonus = parseFloat(document.getElementById('bonus').value) || 0;
+                const deductions = parseFloat(document.getElementById('deductions').value) || 0;
+                const leaveDeduction = parseFloat(document.getElementById('leaveDeduction').value) || 0;
+                
+                const netSalary = baseSalary - deductions - leaveDeduction;
+                const finalSalary = netSalary + bonus;
+                
+                document.getElementById('netSalary').value = netSalary.toFixed(2);
+                document.getElementById('finalSalary').value = finalSalary.toFixed(2);
+            }
+
+            // Update salary calculations when input changes
+            document.getElementById('baseSalary').addEventListener('input', calculateSalary);
+            document.getElementById('bonus').addEventListener('input', calculateSalary);
+            document.getElementById('deductions').addEventListener('input', calculateSalary);
+            document.getElementById('leaveDeduction').addEventListener('input', calculateSalary);
+            
+            // Update base salary when employee is selected
+            document.getElementById('employeeSelect').addEventListener('change', function() {
+                const option = this.options[this.selectedIndex];
+                const baseSalary = option.getAttribute('data-salary') || 0;
+                document.getElementById('baseSalary').value = baseSalary;
+                calculateSalary();
+            });
+            
+            // Handle form submission
+            document.getElementById('recordPaymentForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const salaryId = this.getAttribute('data-salary-id');
+                const method = salaryId ? 'PUT' : 'POST';
+                const url = salaryId ? `/employee/salary/${salaryId}` : '/employee/salary';
+                
+                const salaryData = {
+                    employee_id: document.getElementById('employeeSelect').value,
+                    month_year: document.getElementById('monthYearSelect').value,
+                    base_salary: document.getElementById('baseSalary').value,
+                    bonus: document.getElementById('bonus').value,
+                    deductions: document.getElementById('deductions').value,
+                    leave_deduction: document.getElementById('leaveDeduction').value,
+                    net_salary: document.getElementById('netSalary').value,
+                    final_salary: document.getElementById('finalSalary').value,
+                    payment_status: document.getElementById('paymentStatus').value
+                };
+                
+                if (document.getElementById('paymentStatus').value === 'Paid') {
+                    salaryData.payment_date = document.getElementById('paymentDate').value;
+                } else {
+                    salaryData.payment_date = null;
+                }
+                
+                fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(salaryData)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to save salary data');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    alert(data.message || 'Salary data saved successfully');
+                    
+                    // Reset form
+                    this.reset();
+                    this.removeAttribute('data-salary-id');
+                    document.getElementById('netSalary').value = '';
+                    document.getElementById('finalSalary').value = '';
+                    
+                    // Switch back to salary list tab and refresh data
+                    document.getElementById('salary-list-tab').click();
+                    loadSalaryData();
+                })
+                .catch(error => {
+                    alert(error.message);
+                });
+            });
+
+            // Set current month/year as default
+            const today = new Date();
+            const monthYear = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
+            document.getElementById('monthYearSelect').value = monthYear;
+            
+            // Set today as default payment date
+            document.getElementById('paymentDate').value = today.toISOString().split('T')[0];
+        });
+    </script>
+</body>
+
+</html>

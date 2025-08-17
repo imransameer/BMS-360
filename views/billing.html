@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Blank Page - business 360°</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="assets/css/Billing-Table-with-Add-Row--Fixed-Header-Feature.css">
+    <link rel="stylesheet" href="assets/css/Contact-Form-by-Moorcam.css">
+    <link rel="stylesheet" href="assets/css/Features-Cards-icons.css">
+    <link rel="stylesheet" href="assets/css/Pretty-Table-tables.css">
+    <link rel="stylesheet" href="assets/css/Pretty-Table.css">
+    <link rel="stylesheet" href="assets/css/Profile-Edit-Form-styles.css">
+    <link rel="stylesheet" href="assets/css/Profile-Edit-Form.css">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <nav class="navbar align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 navbar-dark">
+            <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
+                    <div class="sidebar-brand-text mx-3"><span>business 360°</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/profile"><i class="fas fa-user"></i><span>Profile</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/employee"><i class="fas fa-table"></i><span>Employee</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/inventory"><i class="fas fa-boxes fa-fw me-2"></i><span>Inventory</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/billing"> <i class="fas fa-file-invoice-dollar fa-fw me-2"></i><span>Billing</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/sales"> <i class="fas fa-chart-bar fa-fw me-2"></i><span>Sales dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/finance"><i class="fas fa-money-bill-wave fa-fw me-2"></i><span>fiance dashboard</span></a></li>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+            </div>
+        </nav>
+       <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <div class="container-fluid">
+                        <!-- Sidebar Toggle -->
+                        <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        
+                        <!-- Greeting - Responsive -->
+                        <div class="d-flex align-items-center flex-grow-1">
+                            <div class="me-3">
+                                <h5 class="mb-0 text-gray-800 d-flex align-items-center">
+                                    <i class="fas fa-sun text-warning me-2" id="greetingIcon"></i>
+                                    <span class="d-none d-sm-inline" id="greetingText">Good Morning,</span>
+                                 </h5>
+                                <small class="text-muted d-none d-md-inline">Welcome back to your business dashboard</small>
+                            </div>
+                        </div>
+                        
+                        <!-- Right side of navbar -->
+                        <ul class="navbar-nav ms-auto">
+                            <!-- Calendar - Responsive -->
+                            <li class="nav-item">
+                               <div class="d-flex align-items-center px-3 py-2 bg-light rounded-pill" id="dateContainer">
+                                    <i class="fas fa-calendar-day text-primary me-2"></i>
+                                    <span class="me-1 fw-semibold d-none d-sm-inline">Today:</span>
+                                    <span class="d-none d-md-inline" id="fullDate">Thursday, July 10, 2025</span>
+                                    <span class="d-inline d-md-none" id="shortDate">Jul 10</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav> 
+                <!--start new section ****************************************************************************************************************************************************************************************************************************************************************** -->
+      <!--billing code -->
+<!-- Quick Billing Section -->
+<div class="container my-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Quick Billing</h5>
+        </div>
+        <div class="card-body">
+            <!-- Item Search and Add -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <input id="itemSearch" class="form-control" type="text" placeholder="🔍 Search item by name or code" autocomplete="off">
+                    <div id="autocompleteList" class="list-group position-absolute w-100" style="z-index:10;"></div>
+                </div>
+                <div class="col-md-3">
+                    <input id="itemQty" class="form-control" type="number" min="1" value="1" placeholder="Quantity">
+                </div>
+                <div class="col-md-3">
+                    <button id="addToBill" class="btn btn-success w-100" type="button">➕ Add to Bill</button>
+                </div>
+            </div>
+            <!-- Bill Table -->
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle" id="billTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Item</th>
+                            <th>Price (₹)</th>
+                            <th>Qty</th>
+                            <th>Total (₹)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dynamic rows here -->
+                    </tbody>
+                </table>
+            </div>
+            <!-- Bill Summary -->
+            <div class="row justify-content-end">
+                <div class="col-md-6">
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Subtotal</span>
+                            <span id="subtotal">₹0.00</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>GST (18%)</span>
+                            <span id="gst">₹0.00</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Discount</span>
+                            <input id="discount" type="number" class="form-control form-control-sm w-25" value="0" min="0">
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between fw-bold">
+                            <span>Total</span>
+                            <span id="grandTotal">₹0.00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--extra details section................................existing code... -->
+                        <!--extra details section -->
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="customerName" class="form-label">Customer Name</label>
+                                <input id="customerName" class="form-control" type="text" placeholder="Enter name" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="customerPhone" class="form-label">Phone Number</label>
+                                <input id="customerPhone" class="form-control" type="tel" placeholder="Enter phone number" maxlength="10" required pattern="[0-9]{10}">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="customerAgeGroup" class="form-label">Age Group</label>
+                                <select id="customerAgeGroup" class="form-select" required>
+                                    <option value="">Select age group</option>
+                                    <option value="kid">Kid</option>
+                                    <option value="teen">Teen</option>
+                                    <option value="adult">Adult</option>
+                                    <option value="old">Old</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Payment & Actions -->
+            <!-- ...existing code... -->
+            <!-- Payment & Actions -->
+            <div class="row align-items-end">
+                <div class="col-md-4 mb-2">
+                    <label class="form-label">Payment Method</label>
+                    <select id="paymentMethod" class="form-select" required>
+                        <option value="Cash">Cash</option>
+                        <option value="UPI">UPI</option>
+                        <option value="Credit">Credit (Khata)</option>
+                    </select>
+                </div>
+                <div class="col-md-8 text-end">
+                    <button id="generateBill" class="btn btn-primary btn-lg me-2" type="button">🧾 Generate Bill</button>
+                    <button id="printBill" class="btn btn-outline-secondary btn-lg" type="button"><i class="fas fa-download"></i> Download PDF</button>
+                </div>
+            </div>
+            <!-- Bill Details Section (hidden by default) -->
+            <div id="billDetailsSection" class="mt-4" style="display:none;">
+                <div class="card border-success">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">Bill Details</h5>
+                    </div>
+                    <div class="card-body" id="billDetailsContent">
+                        <!-- Bill details will be injected here -->
+                    </div>
+                    <div class="card-footer text-end">
+                        <button id="newBillBtn" class="btn btn-secondary">Start New Bill</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Billing Script -->
+<script>
+// Fetch products from inventory for billing
+let billItems = [];
+let products = [];
+
+// Helper function to convert numbers to words (Indian format)
+function numberToWords(num) {
+    if (num === 0) return "Zero";
+    
+    const ones = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"];
+    const teens = ["Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"];
+    const tens = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
+    
+    function convertToWords(n) {
+        if (n === 0) return "";
+        else if (n < 10) return ones[n];
+        else if (n < 20) return teens[n - 10];
+        else if (n < 100) return tens[Math.floor(n / 10)] + (n % 10 !== 0 ? " " + ones[n % 10] : "");
+        else if (n < 1000) return ones[Math.floor(n / 100)] + " Hundred" + (n % 100 !== 0 ? " " + convertToWords(n % 100) : "");
+        else if (n < 100000) return convertToWords(Math.floor(n / 1000)) + " Thousand" + (n % 1000 !== 0 ? " " + convertToWords(n % 1000) : "");
+        else if (n < 10000000) return convertToWords(Math.floor(n / 100000)) + " Lakh" + (n % 100000 !== 0 ? " " + convertToWords(n % 100000) : "");
+        else return convertToWords(Math.floor(n / 10000000)) + " Crore" + (n % 10000000 !== 0 ? " " + convertToWords(n % 10000000) : "");
+    }
+    
+    return convertToWords(num);
+}
+
+function fetchProducts() {
+    fetch('/inventory/all')
+        .then(res => res.json())
+        .then(data => {
+            products = data.products || [];
+        });
+}
+
+fetchProducts();
+
+function updateTable() {
+    const tbody = document.querySelector("#billTable tbody");
+    tbody.innerHTML = "";
+    let subtotal = 0;
+    billItems.forEach((item, idx) => {
+        // Ensure price is a number
+        let price = typeof item.price === 'number' ? item.price : parseFloat(item.price);
+        if (isNaN(price)) price = 0;
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${item.name}</td>
+            <td>₹${price.toFixed(2)}</td>
+            <td>${item.qty}</td>
+            <td>₹${(price * item.qty).toFixed(2)}</td>
+            <td><button class="btn btn-sm btn-danger" onclick="removeItem(${idx})">&times;</button></td>
+        `;
+        tbody.appendChild(row);
+        subtotal += price * item.qty;
+    });
+    document.getElementById("subtotal").textContent = "₹" + subtotal.toFixed(2);
+    const gst = subtotal * 0.18;
+    document.getElementById("gst").textContent = "₹" + gst.toFixed(2);
+    const discount = parseFloat(document.getElementById("discount").value) || 0;
+    const grandTotal = subtotal + gst - discount;
+    document.getElementById("grandTotal").textContent = "₹" + grandTotal.toFixed(2);
+}
+
+function removeItem(idx) {
+    billItems.splice(idx, 1);
+    updateTable();
+}
+
+window.removeItem = removeItem; // Expose for inline onclick
+
+// Autocomplete logic
+const itemSearch = document.getElementById("itemSearch");
+const autocompleteList = document.getElementById("autocompleteList");
+let selectedProduct = null;
+
+itemSearch.addEventListener("input", function() {
+    const val = this.value.trim().toLowerCase();
+    autocompleteList.innerHTML = "";
+    selectedProduct = null;
+    if (!val) return;
+    const matches = products.filter(p => p.name.toLowerCase().includes(val) || p.code.toLowerCase().includes(val));
+    matches.forEach(p => {
+        const item = document.createElement("button");
+        item.type = "button";
+        item.className = "list-group-item list-group-item-action";
+        item.textContent = `${p.name} (${p.code}) - ₹${p.price}`;
+        item.onclick = () => {
+            itemSearch.value = p.name;
+            itemSearch.dataset.code = p.code;
+            selectedProduct = p;
+            autocompleteList.innerHTML = "";
+        };
+        autocompleteList.appendChild(item);
+    });
+});
+
+document.addEventListener("click", function(e) {
+    if (!autocompleteList.contains(e.target) && e.target !== itemSearch) {
+        autocompleteList.innerHTML = "";
+    }
+});
+
+// Add to Bill with stock check
+const addToBillBtn = document.getElementById("addToBill");
+addToBillBtn.onclick = function() {
+    const name = itemSearch.value.trim();
+    const code = itemSearch.dataset.code || "";
+    const qty = parseInt(document.getElementById("itemQty").value, 10) || 1;
+    let product = products.find(p => p.name === name || p.code === code);
+    if (!product) {
+        product = products.find(p => p.name.toLowerCase() === name.toLowerCase() || p.code.toLowerCase() === code.toLowerCase());
+    }
+    if (!product) {
+        alert("Please select a valid product from the list.");
+        return;
+    }
+    // Check stock from backend
+    fetch('/inventory/check-stock', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ item_code: product.code })
+    })
+    .then(res => res.json())
+    .then(data => {
+        let available = data.stock_qty || 0;
+        // Calculate total qty in bill for this item
+        const existing = billItems.find(item => item.code === product.code);
+        let totalQty = qty + (existing ? existing.qty : 0);
+        if (totalQty > available) {
+            alert(`Not enough stock. Available: ${available}`);
+            return;
+        }
+        if (existing) {
+            existing.qty += qty;
+        } else {
+            billItems.push({ ...product, qty, item_code: product.code });
+        }
+        itemSearch.value = "";
+        itemSearch.dataset.code = "";
+        selectedProduct = null;
+        document.getElementById("itemQty").value = 1;
+        updateTable();
+    })
+    .catch(() => alert("Error checking stock. Try again."));
+};
+
+// Discount validation
+const discountInput = document.getElementById("discount");
+discountInput.addEventListener("input", function() {
+    let val = parseFloat(this.value);
+    if (isNaN(val) || val < 0) {
+        this.value = 0;
+        val = 0;
+    }
+    // Subtotal + GST
+    let subtotal = 0;
+    billItems.forEach(item => {
+        let price = typeof item.price === 'number' ? item.price : parseFloat(item.price);
+        if (isNaN(price)) price = 0;
+        subtotal += price * item.qty;
+    });
+    const gst = subtotal * 0.18;
+    const maxDiscount = subtotal + gst;
+    if (val > maxDiscount) {
+        this.value = maxDiscount.toFixed(2);
+        alert("Discount cannot be greater than total amount.");
+    }
+    updateTable();
+});
+// Generate Bill (sync with backend)
+document.getElementById("generateBill").onclick = function() {
+    if (billItems.length === 0) {
+        alert("Add at least one item to the bill.");
+        return;
+    }
+    // Validate customer details
+    let customerName = document.getElementById("customerName").value.trim();
+    let customerPhone = document.getElementById("customerPhone").value.trim();
+    let customerAgeGroup = document.getElementById("customerAgeGroup").value;
+    let paymentMethod = document.getElementById("paymentMethod").value;
+    if (!customerName) {
+        alert("Customer name is required.");
+        document.getElementById("customerName").focus();
+        return;
+    }
+    if (!customerPhone || !(/^[\d]{10}$/.test(customerPhone))) {
+        alert("Valid phone number is required (10 digits).");
+        document.getElementById("customerPhone").focus();
+        return;
+    }
+    if (!customerAgeGroup) {
+        alert("Please select an age group.");
+        document.getElementById("customerAgeGroup").focus();
+        return;
+    }
+    if (!paymentMethod) {
+        alert("Please select a payment method.");
+        document.getElementById("paymentMethod").focus();
+        return;
+    }
+    // Discount validation (again)
+    let subtotal = 0;
+    billItems.forEach(item => {
+        let price = typeof item.price === 'number' ? item.price : parseFloat(item.price);
+        if (isNaN(price)) price = 0;
+        subtotal += price * item.qty;
+    });
+    const gst = subtotal * 0.18;
+    const discount = parseFloat(document.getElementById("discount").value) || 0;
+    const maxDiscount = subtotal + gst;
+    if (discount < 0 || discount > maxDiscount) {
+        alert("Discount cannot be negative or greater than total amount.");
+        return;
+    }
+    const grandTotal = subtotal + gst - discount;
+    // Send to backend
+    fetch('/billing', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            customerName,
+            customerPhone,
+            customerAgeGroup,
+            paymentMethod,
+            discount,
+        billItems: billItems.map(item => ({
+            name: item.name,
+            item_code: item.item_code || item.code, // support both for transition
+            qty: Number(item.qty),
+            price: Number(item.price)
+        }))
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (!data.success) {
+            alert(data.error || "Failed to save bill.");
+            return;
+        }
+        // Build bill items table
+        let itemsTable = `<div class='table-responsive'><table class='table table-bordered'><thead><tr><th>Item</th><th>Price (₹)</th><th>Qty</th><th>Total (₹)</th></tr></thead><tbody>`;
+        billItems.forEach(item => {
+            let price = typeof item.price === 'number' ? item.price : parseFloat(item.price);
+            if (isNaN(price)) price = 0;
+            itemsTable += `<tr><td>${item.name}</td><td>₹${price.toFixed(2)}</td><td>${item.qty}</td><td>₹${(price * item.qty).toFixed(2)}</td></tr>`;
+        });
+        itemsTable += `</tbody></table></div>`;
+        // Build details HTML
+        const detailsHTML = `
+            <div class="row mb-2">
+                <div class="col-md-4"><strong>Customer Name:</strong> ${customerName || '-'} </div>
+                <div class="col-md-4"><strong>Phone:</strong> ${customerPhone || '-'} </div>
+                <div class="col-md-4"><strong>Age Group:</strong> ${customerAgeGroup || '-'} </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-4"><strong>Payment Method:</strong> ${paymentMethod}</div>
+            </div>
+            ${itemsTable}
+            <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between"><span>Subtotal</span><span>₹${subtotal.toFixed(2)}</span></li>
+                <li class="list-group-item d-flex justify-content-between"><span>GST (18%)</span><span>₹${gst.toFixed(2)}</span></li>
+                <li class="list-group-item d-flex justify-content-between"><span>Discount</span><span>₹${discount.toFixed(2)}</span></li>
+                <li class="list-group-item d-flex justify-content-between fw-bold"><span>Total</span><span>₹${grandTotal.toFixed(2)}</span></li>
+            </ul>
+            <div class="alert alert-success mb-0">Bill generated and saved! Ready to print.</div>
+        `;
+        document.getElementById("billDetailsContent").innerHTML = detailsHTML;
+        document.getElementById("billDetailsSection").style.display = "block";
+        // Disable form controls after bill is generated
+        document.getElementById("addToBill").disabled = true;
+        document.getElementById("itemSearch").disabled = true;
+        document.getElementById("itemQty").disabled = true;
+        document.getElementById("discount").disabled = true;
+        document.getElementById("customerName").disabled = true;
+        document.getElementById("customerPhone").disabled = true;
+        document.getElementById("customerAgeGroup").disabled = true;
+        document.getElementById("paymentMethod").disabled = true;
+        document.getElementById("generateBill").disabled = true;
+        document.querySelectorAll('#billTable button.btn-danger').forEach(btn => btn.disabled = true);
+    })
+    .catch(() => alert("Failed to save bill. Try again."));
+};
+
+// Generate and Download PDF
+document.getElementById("printBill").onclick = function() {
+    if (billItems.length === 0) {
+        alert("Please generate a bill first.");
+        return;
+    }
+    
+    try {
+        // Check if jsPDF is loaded
+        if (typeof window.jspdf === 'undefined') {
+            alert("PDF library not loaded. Please refresh the page and try again.");
+            return;
+        }
+        
+        // Get customer details
+        const customerName = document.getElementById("customerName").value || 'N/A';
+        const customerPhone = document.getElementById("customerPhone").value || 'N/A';
+        const customerAgeGroup = document.getElementById("customerAgeGroup").value || 'N/A';
+        const paymentMethod = document.getElementById("paymentMethod").value || 'Cash';
+        
+        // Generate invoice ID early for use throughout PDF
+        const pdfInvoiceId = "INV-" + Date.now().toString().slice(-6);
+        
+        // Calculate totals
+        let subtotal = 0;
+        billItems.forEach(item => {
+            let price = typeof item.price === 'number' ? item.price : parseFloat(item.price);
+            if (isNaN(price)) price = 0;
+            subtotal += price * item.qty;
+        });
+        const gst = subtotal * 0.18;
+        const discount = parseFloat(document.getElementById("discount").value) || 0;
+        const grandTotal = subtotal + gst - discount;
+        
+        // Create PDF using jsPDF
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        // Define colors
+        const primaryColor = [41, 128, 185]; // Professional blue
+        const secondaryColor = [52, 73, 94]; // Dark gray
+        const accentColor = [231, 76, 60]; // Red for totals
+        const lightGray = [236, 240, 241];
+        const darkGray = [44, 62, 80];
+        
+        // Header Background
+        doc.setFillColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+        doc.rect(0, 0, 210, 35, 'F');
+        
+        // Company Logo Area (placeholder)
+        doc.setFillColor(255, 255, 255);
+        doc.circle(25, 20, 8, 'F');
+        doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+        doc.setFontSize(16);
+        doc.setFont("helvetica", "bold");
+        doc.text("B360", 25, 22, { align: 'center' });
+        
+        // Company Name and Invoice Title
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(24);
+        doc.setFont("helvetica", "bold");
+        doc.text("BUSINESS 360°", 45, 20);
+        
+        doc.setFontSize(14);
+        doc.setFont("helvetica", "normal");
+        doc.text("Business Management System", 45, 28);
+        
+        // Invoice Title (Right side)
+        doc.setFontSize(28);
+        doc.setFont("helvetica", "bold");
+        doc.text("INVOICE", 210, 22, { align: 'right' });
+        
+        // Invoice details box
+        doc.setTextColor(darkGray[0], darkGray[1], darkGray[2]);
+        doc.setFillColor(lightGray[0], lightGray[1], lightGray[2]);
+        doc.rect(130, 45, 70, 35, 'F');
+        doc.rect(130, 45, 70, 35, 'S');
+        
+        doc.setFontSize(10);
+        doc.setFont("helvetica", "bold");
+        doc.text("INVOICE DATE:", 135, 53);
+        doc.text("INVOICE TIME:", 135, 60);
+        doc.text("INVOICE ID:", 135, 67);
+        doc.text("PAYMENT:", 135, 74);
+        
+        doc.setFont("helvetica", "normal");
+        const invoiceId = pdfInvoiceId; // Use the same invoice ID from filename generation
+        doc.text(new Date().toLocaleDateString('en-IN'), 170, 53);
+        doc.text(new Date().toLocaleTimeString('en-IN', { hour12: false }), 170, 60);
+        doc.text(invoiceId, 170, 67);
+        doc.text(paymentMethod, 170, 74);
+        
+        // Company Address
+        doc.setFontSize(10);
+        doc.setTextColor(darkGray[0], darkGray[1], darkGray[2]);
+        doc.text("Address: Your Business Address", 20, 50);
+        doc.text("Phone: +91 XXXXX XXXXX", 20, 57);
+        doc.text("Email: info@business360.com", 20, 64);
+        doc.text("GST: 27AABCU9603R1ZX", 20, 71);
+        
+        // Bill To Section
+        doc.setFillColor(secondaryColor[0], secondaryColor[1], secondaryColor[2]);
+        doc.rect(20, 90, 170, 8, 'F');
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(12);
+        doc.setFont("helvetica", "bold");
+        doc.text("BILL TO:", 25, 96);
+        
+        // Customer Details
+        doc.setTextColor(darkGray[0], darkGray[1], darkGray[2]);
+        doc.setFontSize(11);
+        doc.setFont("helvetica", "bold");
+        doc.text("Customer:", 25, 108);
+        doc.text("Phone:", 25, 116);
+        doc.text("Age Group:", 25, 124);
+        
+        doc.setFont("helvetica", "normal");
+        doc.text(customerName, 55, 108);
+        doc.text(customerPhone, 55, 116);
+        doc.text(customerAgeGroup, 55, 124);
+        
+        // Items Table
+        let tableStartY = 140;
+        
+        // Table Header
+        doc.setFillColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+        doc.rect(20, tableStartY, 170, 12, 'F');
+        
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(11);
+        doc.setFont("helvetica", "bold");
+        doc.text("ITEM DESCRIPTION", 25, tableStartY + 8);
+        doc.text("RATE", 115, tableStartY + 8);
+        doc.text("QTY", 140, tableStartY + 8);
+        doc.text("AMOUNT", 165, tableStartY + 8);
+        
+        // Table Items
+        let yPos = tableStartY + 20;
+        doc.setTextColor(darkGray[0], darkGray[1], darkGray[2]);
+        doc.setFontSize(10);
+        
+        billItems.forEach((item, index) => {
+            let price = typeof item.price === 'number' ? item.price : parseFloat(item.price);
+            if (isNaN(price)) price = 0;
+            const itemTotal = price * item.qty;
+            
+            // Alternate row colors
+            if (index % 2 === 1) {
+                doc.setFillColor(248, 249, 250);
+                doc.rect(20, yPos - 5, 170, 10, 'F');
+            }
+            
+            // Item details
+            const itemName = item.name.length > 35 ? item.name.substring(0, 32) + '...' : item.name;
+            doc.setFont("helvetica", "normal");
+            doc.text(itemName, 25, yPos);
+            
+            // Price, quantity, and total
+            doc.text("₹" + price.toLocaleString('en-IN', { minimumFractionDigits: 2 }), 115, yPos);
+            doc.text(item.qty.toString(), 145, yPos, { align: 'center' });
+            doc.text("₹" + itemTotal.toLocaleString('en-IN', { minimumFractionDigits: 2 }), 185, yPos, { align: 'right' });
+            
+            yPos += 10;
+        });
+        
+        // Summary Section
+        const summaryStartY = yPos + 10;
+        
+        // Summary background
+        doc.setFillColor(lightGray[0], lightGray[1], lightGray[2]);
+        doc.rect(120, summaryStartY, 70, 40, 'F');
+        doc.setLineWidth(0.5);
+        doc.setDrawColor(200, 200, 200);
+        doc.rect(120, summaryStartY, 70, 40, 'S');
+        
+        doc.setTextColor(darkGray[0], darkGray[1], darkGray[2]);
+        doc.setFontSize(10);
+        doc.setFont("helvetica", "normal");
+        
+        // Subtotal
+        doc.text("Subtotal:", 125, summaryStartY + 8);
+        doc.text("₹" + subtotal.toLocaleString('en-IN', { minimumFractionDigits: 2 }), 185, summaryStartY + 8, { align: 'right' });
+        
+        // GST
+        doc.text("GST (18%):", 125, summaryStartY + 16);
+        doc.text("₹" + gst.toLocaleString('en-IN', { minimumFractionDigits: 2 }), 185, summaryStartY + 16, { align: 'right' });
+        
+        // Discount
+        if (discount > 0) {
+            doc.text("Discount:", 125, summaryStartY + 24);
+            doc.text("-₹" + discount.toLocaleString('en-IN', { minimumFractionDigits: 2 }), 185, summaryStartY + 24, { align: 'right' });
+        }
+        
+        // Total
+        doc.setLineWidth(1);
+        doc.setDrawColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+        doc.line(125, summaryStartY + 28, 185, summaryStartY + 28);
+        
+        doc.setFontSize(12);
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(accentColor[0], accentColor[1], accentColor[2]);
+        doc.text("TOTAL:", 125, summaryStartY + 36);
+        doc.text("₹" + grandTotal.toLocaleString('en-IN', { minimumFractionDigits: 2 }), 185, summaryStartY + 36, { align: 'right' });
+        
+        // Amount in Words
+        const amountInWords = numberToWords(Math.round(grandTotal));
+        doc.setTextColor(darkGray[0], darkGray[1], darkGray[2]);
+        doc.setFontSize(9);
+        doc.setFont("helvetica", "italic");
+        doc.text("Amount in Words: " + amountInWords + " Rupees Only", 25, summaryStartY + 50);
+        
+        // Footer
+        const footerY = summaryStartY + 70;
+        doc.setFillColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+        doc.rect(0, footerY, 210, 25, 'F');
+        
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(11);
+        doc.setFont("helvetica", "bold");
+        doc.text("Thank You for Your Business!", 105, footerY + 8, { align: 'center' });
+        
+        doc.setFontSize(9);
+        doc.setFont("helvetica", "normal");
+        doc.text("This is a computer generated invoice", 105, footerY + 15, { align: 'center' });
+        doc.text("Powered by Business 360° Management System", 105, footerY + 20, { align: 'center' });
+        
+        // Generate professional filename
+        const today = new Date();
+        const dateStr = today.toISOString().slice(0, 10); // YYYY-MM-DD
+        const customerNameSafe = customerName.replace(/[^a-zA-Z0-9]/g, '_').substring(0, 20);
+        const filename = `${pdfInvoiceId}_${customerNameSafe}_${dateStr}.pdf`;
+        
+        // Download the PDF
+        doc.save(filename);
+        
+        // Show success message with invoice details
+        alert(`✅ Invoice Generated Successfully!\n\nInvoice ID: ${pdfInvoiceId}\nCustomer: ${customerName}\nAmount: ₹${grandTotal.toFixed(2)}\n\nPDF downloaded as: ${filename}`);
+        
+    } catch (error) {
+        console.error("PDF generation error:", error);
+        alert("Failed to generate PDF. Please try again or contact support.");
+    }
+};
+// New Bill button logic
+document.addEventListener('click', function(e) {
+    if (e.target && e.target.id === 'newBillBtn') {
+        // Reset all fields and bill
+        billItems = [];
+        updateTable();
+        document.getElementById("itemSearch").value = "";
+        document.getElementById("itemSearch").dataset.code = "";
+        document.getElementById("itemQty").value = 1;
+        document.getElementById("discount").value = 0;
+        document.getElementById("customerName").value = "";
+        document.getElementById("customerPhone").value = "";
+        document.getElementById("customerAgeGroup").value = "";
+        document.getElementById("paymentMethod").value = "Cash";
+        document.getElementById("billDetailsSection").style.display = "none";
+        // Enable controls
+        document.getElementById("addToBill").disabled = false;
+        document.getElementById("itemSearch").disabled = false;
+        document.getElementById("itemQty").disabled = false;
+        document.getElementById("discount").disabled = false;
+        document.getElementById("customerName").disabled = false;
+        document.getElementById("customerPhone").disabled = false;
+        document.getElementById("customerAgeGroup").disabled = false;
+        document.getElementById("paymentMethod").disabled = false;
+        document.getElementById("generateBill").disabled = false;
+    }
+});
+// New Bill button logic
+
+</script>
+<!-- End Quick Billing Section -->
+
+
+            <!--footer start *************************************************************************************************************************************************************************************************************************************************************************************** -->
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © business 360° 2025</span></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/Billing-Table-with-Add-Row--Fixed-Header-Feature-Billing-Table-with-Add-Row--Fixed-Header.js"></script>
+    <script src="assets/js/Profile-Edit-Form-profile.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/topnav.js"></script>
+
+</body>
+
+</html>

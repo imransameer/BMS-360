@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title><%= title %> - business 360°</title>
+    <!-- Only essential CSS for faster loading -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <!-- Critical CSS inlined for faster rendering -->
+    <style>
+        /* Essential styles only */
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+        .attendance-notification {
+            min-width: 300px;
+            margin-bottom: 10px;
+        }
+        .table-hover tbody tr:hover {
+            background-color: rgba(0,0,0,.03);
+        }
+        .btn-outline-success:hover {
+            color: #fff;
+            background-color: #28a745;
+        }
+        /* Speed optimizations */
+        .sidebar .nav-item .nav-link {
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+        }
+        .sidebar .nav-item .nav-link i {
+            margin-right: 0.5rem;
+            width: 1rem;
+        }
+        .form-select, .form-control {
+            transition: none; /* Remove transitions for better performance */
+        }
+        /* Preload attendance state colors */
+        .bg-attendance-present { background-color: #e8f5e9; }
+        .bg-attendance-absent { background-color: #ffebee; }
+        .bg-attendance-leave { background-color: #fff8e1; }
+        .bg-attendance-half-day { background-color: #e0f7fa; }
+    </style>
+</head>
+
+<body id="page-top">
+     <div id="wrapper">
+        <nav class="navbar align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 navbar-dark">
+            <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
+                    <div class="sidebar-brand-text mx-3"><span>business 360°</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/profile"><i class="fas fa-user"></i><span>Profile</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/employee"><i class="fas fa-table"></i><span>Employee</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/inventory"><i class="fas fa-boxes fa-fw me-2"></i><span>Inventory</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/billing"> <i class="fas fa-file-invoice-dollar fa-fw me-2"></i><span>Billing</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/sales"> <i class="fas fa-chart-bar fa-fw me-2"></i><span>Sales dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/finance"><i class="fas fa-money-bill-wave fa-fw me-2"></i><span>fiance dashboard</span></a></li>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+            </div>
+        </nav>
+       <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <div class="container-fluid">
+                        <!-- Sidebar Toggle -->
+                        <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        
+                        <!-- Greeting - Responsive -->
+                        <div class="d-flex align-items-center flex-grow-1">
+                            <div class="me-3">
+                                <h5 class="mb-0 text-gray-800 d-flex align-items-center">
+                                   <i class="fas fa-sun text-warning me-2" id="greetingIcon"></i>
+                                    <span class="d-none d-sm-inline" id="greetingText">Good Morning,</span>
+                                 </h5>
+                                <small class="text-muted d-none d-md-inline">Welcome back to your business dashboard</small>
+                            </div>
+                        </div>
+                        
+                        <!-- Right side of navbar -->
+                        <ul class="navbar-nav ms-auto">
+                            <!-- Calendar - Responsive -->
+                            <li class="nav-item">
+                                <div class="d-flex align-items-center px-3 py-2 bg-light rounded-pill" id="dateContainer">
+                                    <i class="fas fa-calendar-day text-primary me-2"></i>
+                                    <span class="me-1 fw-semibold d-none d-sm-inline">Today:</span>
+                                    <span class="d-none d-md-inline" id="fullDate">Thursday, July 10, 2025</span>
+                                    <span class="d-inline d-md-none" id="shortDate">Jul 10</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav> 
+              <!-- Start Attendance Section -->
+<div class="container-fluid my-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow border-0 rounded-lg">
+                <div class="card-header bg-gradient-primary text-white py-3">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h5 class="m-0 font-weight-bold">Employee Attendance</h5>
+                            <p class="text-white-50 small mb-0">Date: <%= displayDate %></p>
+                        </div>
+                        <div class="col-auto">
+                            <div class="input-group">
+                                <input type="date" id="attendanceDate" class="form-control form-control-sm bg-light border-0" value="<%= currentDate %>">
+                                <button id="searchDateBtn" class="btn btn-light btn-sm"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <!-- Optimized table with only necessary classes -->
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0 align-middle" id="attendanceTable">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th class="py-3 px-4">ID</th>
+                                    <th class="py-3">Name</th>
+                                    <th class="py-3">Department</th>
+                                    <th class="py-3">Status</th>
+                                    <th class="py-3">Leave Type</th>
+                                    <th class="py-3">Reason</th>
+                                    <th class="py-3 text-end pe-4">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="attendanceTableBody">
+                                <% if(attendance && attendance.length > 0) { %>
+                                    <% attendance.forEach(record => { %>
+                                        <tr data-employee-id="<%= record.employee_id %>" class="bg-attendance-<%= record.status %>">
+                                            <td class="py-3 px-4 fw-bold text-primary"><%= record.employee_id %></td>
+                                            <td>
+                                                <div><%= record.name %></div>
+                                            </td>
+                                            <td><%= record.department || 'Not Assigned' %></td>
+                                            <td>
+                                                <select class="form-select form-select-sm status-select">
+                                                    <option value="present" <%= record.status === 'present' ? 'selected' : '' %>>🟢 Present</option>
+                                                    <option value="leave" <%= record.status === 'leave' ? 'selected' : '' %>>🔴 Leave</option>
+                                                    <option value="absent" <%= record.status === 'absent' ? 'selected' : '' %>>⚪ Absent</option>
+                                                    <option value="half-day" <%= record.status === 'half-day' ? 'selected' : '' %>>🟡 Half Day</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select class="form-select form-select-sm leave-type-select" <%= record.status === 'present' ? 'disabled' : '' %>>
+                                                    <option value="">Select Type</option>
+                                                    <option value="sick" <%= record.leave_type === 'sick' ? 'selected' : '' %>>Sick</option>
+                                                    <option value="paid" <%= record.leave_type === 'paid' ? 'selected' : '' %>>Paid</option>
+                                                    <option value="unpaid" <%= record.leave_type === 'unpaid' ? 'selected' : '' %>>Unpaid</option>
+                                                    <option value="emergency" <%= record.leave_type === 'emergency' ? 'selected' : '' %>>Emergency</option>
+                                                    <option value="other" <%= record.leave_type === 'other' ? 'selected' : '' %>>Other</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm reason-input" 
+                                                    value="<%= record.reason || '' %>" 
+                                                    placeholder="Enter reason" 
+                                                    <%= record.status === 'present' ? 'disabled' : '' %>>
+                                            </td>
+                                            <td class="text-end pe-4">
+                                                <button class="btn btn-sm btn-outline-success save-btn" title="Save attendance">
+                                                    <i class="fas fa-save"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    <% }); %>
+                                <% } else { %>
+                                    <tr>
+                                        <td colspan="7" class="text-center py-4">No attendance records found for this date.</td>
+                                    </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer bg-light p-3 border-0">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <small class="text-muted">Showing <%= attendance ? attendance.length : 0 %> employees</small>
+                        </div>
+                        <div class="col-auto">
+                            <a href="/employee" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-users me-1"></i> Employee List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                <!-- End Attendance Section -->
+
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © business 360° 2025</span></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+    <!-- Optimized JavaScript for performance -->
+    <script src="assets/bootstrap/js/bootstrap.min.js" defer></script>
+    <script>
+        // Show loading message immediately
+        const loadingContainer = document.createElement('div');
+        loadingContainer.className = 'notification-container';
+        loadingContainer.style.position = 'fixed';
+        loadingContainer.style.top = '20px';
+        loadingContainer.style.right = '20px';
+        loadingContainer.style.zIndex = '9999';
+        document.body.appendChild(loadingContainer);
+        
+        // Create loading notification
+        const loadingNotification = document.createElement('div');
+        loadingNotification.className = 'alert alert-info attendance-notification shadow-sm';
+        loadingNotification.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Page initialized';
+        loadingContainer.appendChild(loadingNotification);
+        
+        // Create notification container once DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Remove loading message
+            if (loadingNotification.parentNode === loadingContainer) {
+                loadingContainer.removeChild(loadingNotification);
+            }
+            
+            // Initialize event listeners with event delegation
+            initAttendanceFunctionality();
+            
+            // Show a success message that the page is loaded
+            showNotification('Attendance page loaded successfully!', 'success');
+        });
+        
+        // Function to initialize attendance functionality with optimized event handling
+        function initAttendanceFunctionality() {
+            const attendanceTable = document.getElementById('attendanceTable');
+            const searchDateBtn = document.getElementById('searchDateBtn');
+            const attendanceDate = document.getElementById('attendanceDate');
+            
+            // Event delegation for status selects - handles all status changes with a single listener
+            if (attendanceTable) {
+                attendanceTable.addEventListener('change', function(e) {
+                    // Handle status select changes
+                    if (e.target.classList.contains('status-select')) {
+                        updateDependentFields(e.target);
+                    }
+                });
+                
+                // Event delegation for save buttons
+                attendanceTable.addEventListener('click', function(e) {
+                    if (e.target.closest('.save-btn')) {
+                        const saveBtn = e.target.closest('.save-btn');
+                        saveAttendanceRecord(saveBtn);
+                    }
+                });
+            }
+            
+            // Date search functionality
+            if (searchDateBtn && attendanceDate) {
+                searchDateBtn.addEventListener('click', function() {
+                    searchByDate();
+                });
+                
+                // Also allow pressing Enter in the date field
+                attendanceDate.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        searchByDate();
+                    }
+                });
+            }
+            
+            // Helper function for date search
+            function searchByDate() {
+                const selectedDate = attendanceDate.value;
+                if (selectedDate) {
+                    showNotification('Loading attendance data...', 'info');
+                    window.location.href = `/attendance?date=${selectedDate}`;
+                }
+            }
+        }
+        
+        // Function to update dependent fields based on status - optimized
+        function updateDependentFields(statusSelect) {
+            const row = statusSelect.closest('tr');
+            const leaveTypeSelect = row.querySelector('.leave-type-select');
+            const reasonInput = row.querySelector('.reason-input');
+            
+            // Immediate state update for better UX
+            const isPresent = statusSelect.value === 'present';
+            leaveTypeSelect.disabled = isPresent;
+            reasonInput.disabled = isPresent;
+            
+            // Clear fields if present
+            if (isPresent) {
+                leaveTypeSelect.value = '';
+                reasonInput.value = '';
+            }
+            
+            // Update row background for visual feedback
+            row.className = 'bg-attendance-' + statusSelect.value;
+        }
+        
+        // Function to save attendance record - optimized
+        async function saveAttendanceRecord(saveBtn) {
+            const row = saveBtn.closest('tr');
+            const employeeId = row.getAttribute('data-employee-id');
+            const status = row.querySelector('.status-select').value;
+            const leaveTypeSelect = row.querySelector('.leave-type-select');
+            const reasonInput = row.querySelector('.reason-input');
+            const leaveType = leaveTypeSelect.value;
+            const reason = reasonInput.value;
+            const date = document.getElementById('attendanceDate').value;
+            
+            // Validate data
+            if (status !== 'present' && !leaveType) {
+                showNotification('Please select a leave type for absences, leaves, or half days.', 'error');
+                leaveTypeSelect.focus();
+                return;
+            }
+            
+            // Prepare data for sending
+            const attendanceData = {
+                employee_id: employeeId,
+                date: date,
+                status: status,
+                leave_type: status !== 'present' ? leaveType : null,
+                reason: status !== 'present' ? reason : null
+            };
+            
+            try {
+                // Show loading state
+                saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                saveBtn.disabled = true;
+                
+                // Send data to server with optimized fetch
+                const response = await fetch('/att_emp/save', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(attendanceData),
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Show success message
+                    saveBtn.innerHTML = '<i class="fas fa-check"></i>';
+                    setTimeout(() => {
+                        saveBtn.innerHTML = '<i class="fas fa-save"></i>';
+                        saveBtn.disabled = false;
+                    }, 1000); // Reduced timeout for better UX
+                    
+                    showNotification('Attendance saved!', 'success');
+                } else {
+                    throw new Error(result.message || 'Could not save attendance');
+                }
+            } catch (error) {
+                console.error('Error saving attendance:', error);
+                saveBtn.innerHTML = '<i class="fas fa-times"></i>';
+                setTimeout(() => {
+                    saveBtn.innerHTML = '<i class="fas fa-save"></i>';
+                    saveBtn.disabled = false;
+                }, 1000);
+                
+                showNotification('Error: ' + error.message, 'error');
+            }
+        }
+        
+        // Function to show notification - optimized
+        function showNotification(message, type = 'info') {
+            const container = document.querySelector('.notification-container');
+            if (!container) return;
+            
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type === 'error' ? 'danger' : (type === 'success' ? 'success' : 'info')} attendance-notification shadow-sm`;
+            notification.innerHTML = message;
+            
+            // Add close button
+            const closeBtn = document.createElement('button');
+            closeBtn.type = 'button';
+            closeBtn.className = 'btn-close float-end';
+            closeBtn.setAttribute('aria-label', 'Close');
+            closeBtn.onclick = function() {
+                container.removeChild(notification);
+            };
+            notification.appendChild(closeBtn);
+            
+            // Add to container
+            container.appendChild(notification);
+            
+            // Auto remove after 3 seconds (reduced from 5)
+            setTimeout(() => {
+                if (notification.parentNode === container) {
+                    container.removeChild(notification);
+                }
+            }, 3000);
+        }
+        
+        // Optimize page load by initializing theme toggle
+        document.getElementById('sidebarToggle')?.addEventListener('click', function() {
+            document.body.classList.toggle('sidebar-toggled');
+            document.querySelector('.sidebar').classList.toggle('toggled');
+        });
+    </script>
+    <script src="assets/js/topnav.js"></script>
+
+</body>
+
+</html>

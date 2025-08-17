@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Error - Business 360°</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/fonts/fontawesome-all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fc;
+        }
+        .error-container {
+            max-width: 600px;
+            margin: 100px auto;
+        }
+        .error-icon {
+            font-size: 48px;
+            color: #e74a3b;
+        }
+        .error-details {
+            background-color: #f8f8f8;
+            border-left: 4px solid #e74a3b;
+            padding: 10px 15px;
+            margin-top: 20px;
+            font-family: monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container error-container">
+        <div class="card shadow border-0">
+            <div class="card-body p-5 text-center">
+                <div class="mb-3">
+                    <i class="fas fa-exclamation-circle error-icon"></i>
+                </div>
+                <h3 class="text-dark mb-4">Oops! An Error Occurred</h3>
+                <p class="text-muted mb-4"><%= message || 'Something went wrong.' %></p>
+                
+                <% if (error && error.stack) { %>
+                    <div class="error-details text-start">
+                        <strong>Error:</strong> <%= error.message %>
+                        <div class="mt-2"><%= error.stack %></div>
+                    </div>
+                <% } %>
+                
+                <div class="mt-4">
+                    <a href="/" class="btn btn-primary me-2">
+                        <i class="fas fa-home me-1"></i> Go to Dashboard
+                    </a>
+                    <a href="javascript:history.back()" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-1"></i> Go Back
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

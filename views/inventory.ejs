@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Dashboard - business 360°</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="assets/css/Billing-Table-with-Add-Row--Fixed-Header-Feature.css">
+    <link rel="stylesheet" href="assets/css/Contact-Form-by-Moorcam.css">
+    <link rel="stylesheet" href="assets/css/Features-Cards-icons.css">
+    <link rel="stylesheet" href="assets/css/Pretty-Table-tables.css">
+    <link rel="stylesheet" href="assets/css/Pretty-Table.css">
+    <link rel="stylesheet" href="assets/css/Profile-Edit-Form-styles.css">
+    <link rel="stylesheet" href="assets/css/Profile-Edit-Form.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <!-- jQuery must load before other scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Custom styles for icon fallbacks -->
+    <style>
+        /* Show fallback text if FontAwesome fails to load */
+        .btn i.fas {
+            font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", FontAwesome !important;
+        }
+        
+        /* If FontAwesome is not loaded, hide the icon and show fallback */
+        .fa-not-loaded .fas {
+            display: none !important;
+        }
+        .fa-not-loaded .d-none {
+            display: inline !important;
+        }
+        
+        /* Test if FontAwesome is loaded */
+        .fa-test:before {
+            content: "\f007"; /* FontAwesome user icon */
+            font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", FontAwesome;
+            font-weight: 900;
+        }
+        
+        /* Inventory specific styles */
+        .table-responsive {
+            border-radius: 0.375rem;
+        }
+        
+        .sticky-top {
+            background-color: #f8f9fa !important;
+        }
+        
+        .btn-sm {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .card-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e3e6f0;
+        }
+        
+        /* Responsive table improvements */
+        @media (max-width: 768px) {
+            .table-responsive {
+                font-size: 0.875rem;
+            }
+            
+            .btn-sm {
+                padding: 0.125rem 0.25rem;
+                font-size: 0.75rem;
+            }
+        }
+        
+        /* Modal improvements */
+        .modal-header {
+            border-bottom: 1px solid #e3e6f0;
+        }
+        
+        .modal-footer {
+            border-top: 1px solid #e3e6f0;
+        }
+    </style>
+</head>
+
+<body id="page-top">
+     <div id="wrapper">
+        <nav class="navbar align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 navbar-dark">
+            <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
+                    <div class="sidebar-brand-text mx-3"><span>business 360°</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/profile"><i class="fas fa-user"></i><span>Profile</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/employee"><i class="fas fa-table"></i><span>Employee</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/inventory"><i class="fas fa-boxes fa-fw me-2"></i><span>Inventory</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/billing"> <i class="fas fa-file-invoice-dollar fa-fw me-2"></i><span>Billing</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/sales"> <i class="fas fa-chart-bar fa-fw me-2"></i><span>Sales dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/finance"><i class="fas fa-money-bill-wave fa-fw me-2"></i><span>fiance dashboard</span></a></li>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+            </div>
+        </nav>
+       <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <div class="container-fluid">
+                        <!-- Sidebar Toggle -->
+                        <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        
+                        <!-- Greeting - Responsive -->
+                        <div class="d-flex align-items-center flex-grow-1">
+                            <div class="me-3">
+                                <h5 class="mb-0 text-gray-800 d-flex align-items-center">
+                                   <i class="fas fa-sun text-warning me-2" id="greetingIcon"></i>
+                                    <span class="d-none d-sm-inline" id="greetingText">Good Morning,</span>
+                                 </h5>
+                                <small class="text-muted d-none d-md-inline">Welcome back to your business dashboard</small>
+                            </div>
+                        </div>
+                        
+                        <!-- Right side of navbar -->
+                        <ul class="navbar-nav ms-auto">
+                            <!-- Calendar - Responsive -->
+                            <li class="nav-item">
+                                <div class="d-flex align-items-center px-3 py-2 bg-light rounded-pill" id="dateContainer">
+                                    <i class="fas fa-calendar-day text-primary me-2"></i>
+                                    <span class="me-1 fw-semibold d-none d-sm-inline">Today:</span>
+                                    <span class="d-none d-md-inline" id="fullDate">Thursday, July 10, 2025</span>
+                                    <span class="d-inline d-md-none" id="shortDate">Jul 10</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+    <!--starting point ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+<!--inventory code :-->
+<div class="container my-4">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="d-flex flex-wrap align-items-center justify-content-between mb-2">
+                <h6 class="m-0 font-weight-bold text-primary">Inventory List</h6>
+                <button id="addNewProductBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                    <i class="fas fa-plus me-1"></i> Add New Product
+                </button>
+            </div>
+            <div class="d-flex gap-2 flex-wrap">
+                <div class="input-group" style="max-width: 400px;">
+                    <input id="inventorySearch" type="text" class="form-control form-control-sm" placeholder="Search item/category...">
+                    <select id="categoryFilter" class="form-select form-select-sm" style="max-width: 150px;">
+                        <option value="">All Categories</option>
+                        <% if (locals.categories && categories.length > 0) { %>
+                            <% categories.forEach(function(cat) { %>
+                                <option value="<%= cat %>"><%= cat %></option>
+                            <% }); %>
+                        <% } else { %>
+                            <option value="Grocery">Grocery</option>
+                            <option value="Dairy">Dairy</option>
+                            <option value="Snacks">Snacks</option>
+                        <% } %>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+                <table class="table table-hover table-bordered mb-0 align-middle" id="inventoryTable">
+                    <thead class="table-light sticky-top">
+                        <tr class="text-center">
+                            <th>📦 Item Name</th>
+                            <th>🆔 Code/SKU</th>
+                            <th>📊 Category</th>
+                            <th>🔢 Current Stock</th>
+                            <th>💰 Purchase Price (₹)</th>
+                            <th>🏷️ Selling Price (₹)</th>
+                            <th>⚙️ Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (inventory_items && inventory_items.length > 0) { %>
+                            <% inventory_items.forEach(function(item) { %>
+                                <tr>
+                                    <td><%= item.item_name %></td>
+                                    <td><%= item.item_code %></td>
+                                    <td><%= item.category %></td>
+                                    <td><%= item.stock_qty %> pcs</td>
+                                    <td><%= item.purchase_price %></td>
+                                    <td><%= item.selling_price %></td>
+                                    <td class="text-center">
+                                        <button class="btn btn-outline-success btn-sm me-1" title="Add Stock"><i class="fas fa-plus"></i><span class="d-none">+</span></button>
+                                        <button class="btn btn-outline-warning btn-sm me-1" title="Remove Stock"><i class="fas fa-minus"></i><span class="d-none">-</span></button>
+                                        <button class="btn btn-outline-primary btn-sm me-1" title="Edit Product"><i class="fas fa-edit"></i><span class="d-none">✏️</span></button>
+                                        <button class="btn btn-outline-danger btn-sm" title="Delete Product"><i class="fas fa-trash"></i><span class="d-none">🗑️</span></button>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        <% } else { %>
+                            <tr>
+                                <td colspan="7" class="text-center">No inventory items found.</td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Add Product Modal -->
+<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="addProductModalLabel"><i class="fas fa-box-open me-2"></i>Add New Product</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addProductForm" class="needs-validation" novalidate>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="item_name" class="form-label">Item Name *</label>
+                            <input type="text" class="form-control" id="item_name" name="item_name" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="item_code" class="form-label">Item Code/SKU *</label>
+                            <input type="text" class="form-control" id="item_code" name="item_code" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="category" class="form-label">Category *</label>
+                            <select class="form-select" id="category" name="category" required>
+                                <option value="">Select Category</option>
+                                <% if (locals.categories && categories.length > 0) { %>
+                                    <% categories.forEach(function(cat) { %>
+                                        <option value="<%= cat %>"><%= cat %></option>
+                                    <% }); %>
+                                <% } else { %>
+                                    <option value="Grocery">Grocery</option>
+                                    <option value="Dairy">Dairy</option>
+                                    <option value="Snacks">Snacks</option>
+                                    <option value="Electronics">Electronics</option>
+                                    <option value="Clothing">Clothing</option>
+                                    <option value="Stationery">Stationery</option>
+                                <% } %>
+                            </select>
+                            <div class="form-text mt-1">
+                                <a href="#" id="addNewCategoryLink" class="text-primary">
+                                    <i class="fas fa-plus-circle"></i> Add New Category
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="stock_qty" class="form-label">Initial Stock Quantity *</label>
+                            <input type="number" class="form-control" id="stock_qty" name="stock_qty" min="0" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="purchase_price" class="form-label">Purchase Price (₹) *</label>
+                            <input type="number" class="form-control" id="purchase_price" name="purchase_price" min="0" step="0.01" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="selling_price" class="form-label">Selling Price (₹) *</label>
+                            <input type="number" class="form-control" id="selling_price" name="selling_price" min="0" step="0.01" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>Cancel
+                </button>
+                <button type="button" class="btn btn-primary" id="saveProductBtn">
+                    <i class="fas fa-save me-1"></i>Save Product
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Edit Product Modal -->
+<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="editProductModalLabel"><i class="fas fa-edit me-2"></i>Edit Product</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editProductForm" class="needs-validation" novalidate>
+                    <input type="hidden" id="edit_item_code" name="item_code">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="edit_item_name" class="form-label">Item Name *</label>
+                            <input type="text" class="form-control" id="edit_item_name" name="item_name" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="edit_item_code_display" class="form-label">Item Code/SKU</label>
+                            <input type="text" class="form-control" id="edit_item_code_display" disabled>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="edit_category" class="form-label">Category *</label>
+                            <select class="form-select" id="edit_category" name="category" required>
+                                <option value="">Select Category</option>
+                                <% if (locals.categories && categories.length > 0) { %>
+                                    <% categories.forEach(function(cat) { %>
+                                        <option value="<%= cat %>"><%= cat %></option>
+                                    <% }); %>
+                                <% } else { %>
+                                    <option value="Grocery">Grocery</option>
+                                    <option value="Dairy">Dairy</option>
+                                    <option value="Snacks">Snacks</option>
+                                    <option value="Electronics">Electronics</option>
+                                    <option value="Clothing">Clothing</option>
+                                    <option value="Stationery">Stationery</option>
+                                <% } %>
+                            </select>
+                            <div class="form-text mt-1">
+                                <a href="#" id="editNewCategoryLink" class="text-primary">
+                                    <i class="fas fa-plus-circle"></i> Add New Category
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="edit_stock_qty" class="form-label">Current Stock</label>
+                            <input type="number" class="form-control" id="edit_stock_qty" disabled>
+                            <div class="form-text">Use Add/Remove buttons on the table to change stock</div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="edit_purchase_price" class="form-label">Purchase Price (₹) *</label>
+                            <input type="number" class="form-control" id="edit_purchase_price" name="purchase_price" min="0" step="0.01" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="edit_selling_price" class="form-label">Selling Price (₹) *</label>
+                            <input type="number" class="form-control" id="edit_selling_price" name="selling_price" min="0" step="0.01" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>Cancel
+                </button>
+                <button type="button" class="btn btn-primary" id="updateProductBtn">
+                    <i class="fas fa-save me-1"></i>Update Product
+                </button>
+            </div>
+        </div>
+        </div>
+    </div>
+            </div>
+            <!--footer start ***************************************************************************************************************************************************-->
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © business 360° 2025</span></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+<script>
+// AJAX search for inventory
+$(document).ready(function() {
+    console.log('Inventory page jQuery ready!');
+    
+    // Check if FontAwesome is loaded
+    var testElement = $('<i class="fas fa-test" style="position:absolute;left:-9999px;"></i>').appendTo('body');
+    setTimeout(function() {
+        var computed = window.getComputedStyle(testElement[0], '::before');
+        var content = computed.getPropertyValue('content');
+        if (content === 'none' || content === '""') {
+            console.warn('FontAwesome not loaded properly, using fallbacks');
+            $('body').addClass('fa-not-loaded');
+        } else {
+            console.log('FontAwesome loaded successfully');
+        }
+        testElement.remove();
+    }, 100);
+    
+    // Test if elements exist
+    console.log('Search input exists:', $('#inventorySearch').length > 0);
+    console.log('Category filter exists:', $('#categoryFilter').length > 0);
+    console.log('Inventory table exists:', $('#inventoryTable').length > 0);
+    
+    function renderTable(items) {
+        var tbody = '';
+        if (items && items.length > 0) {
+            items.forEach(function(item) {
+                tbody += `<tr>
+                    <td>${item.item_name}</td>
+                    <td>${item.item_code}</td>
+                    <td>${item.category}</td>
+                    <td>${item.stock_qty} pcs</td>
+                    <td>${item.purchase_price}</td>
+                    <td>${item.selling_price}</td>
+                    <td class="text-center">
+                        <button class="btn btn-outline-success btn-sm me-1" title="Add Stock"><i class="fas fa-plus"></i><span class="d-none">+</span></button>
+                        <button class="btn btn-outline-warning btn-sm me-1" title="Remove Stock"><i class="fas fa-minus"></i><span class="d-none">-</span></button>
+                        <button class="btn btn-outline-primary btn-sm me-1" title="Edit Product"><i class="fas fa-edit"></i><span class="d-none">✏️</span></button>
+                        <button class="btn btn-outline-danger btn-sm" title="Delete Product"><i class="fas fa-trash"></i><span class="d-none">🗑️</span></button>
+                    </td>
+                </tr>`;
+            });
+        } else {
+            tbody = '<tr><td colspan="7" class="text-center">No inventory items found.</td></tr>';
+        }
+        $('#inventoryTable tbody').html(tbody);
+    }
+
+    $('#inventorySearch').on('keyup', function() {
+        var value = $(this).val();
+        var category = $('#categoryFilter').val();
+        console.log('Search triggered:', value, 'Category:', category);
+        
+        $.ajax({
+            url: '/inventory/search',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ search: value, category: category }),
+            success: function(data) {
+                console.log('Search success:', data);
+                renderTable(data.inventory_items);
+            },
+            error: function(xhr, status, error) {
+                console.error('Search error:', status, error, xhr.responseText);
+                renderTable([]);
+            }
+        });
+    });
+
+    $('#categoryFilter').on('change', function() {
+        var value = $('#inventorySearch').val();
+        var category = $(this).val();
+        console.log('Category filter triggered:', category, 'Search:', value);
+        
+        $.ajax({
+            url: '/inventory/search',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ search: value, category: category }),
+            success: function(data) {
+                console.log('Category filter success:', data);
+                renderTable(data.inventory_items);
+            },
+            error: function(xhr, status, error) {
+                console.error('Category filter error:', status, error, xhr.responseText);
+                renderTable([]);
+            }
+        });
+    });
+
+
+    // Delegate actions for dynamically generated rows
+    $('#inventoryTable').on('click', '.btn-outline-success[title="Add Stock"]', function() {
+        const row = $(this).closest('tr');
+        const item_code = row.find('td:eq(1)').text();
+        const item_name = row.find('td:eq(0)').text();
+        
+        const qty = prompt(`Enter quantity to add to stock for "${item_name}" (${item_code}):`, "1");
+        if (qty === null) return; // User cancelled
+        
+        const quantity = parseInt(qty);
+        if (isNaN(quantity) || quantity <= 0) {
+            alert('Please enter a valid positive number.');
+            return;
+        }
+        
+        $.ajax({
+            url: '/inventory/increment-stock',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ item_code, qty: quantity }),
+            success: function(response) {
+                if (response.success) {
+                    alert(`Stock updated successfully! New stock: ${response.stock_qty} pcs`);
+                    location.reload();
+                } else {
+                    alert(response.message || 'Failed to update stock.');
+                }
+            },
+            error: function(xhr) {
+                let errorMsg = 'Failed to update stock.';
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    errorMsg = xhr.responseJSON.message;
+                }
+                alert(errorMsg);
+            }
+        });
+    });
+    
+    $('#inventoryTable').on('click', '.btn-outline-warning[title="Remove Stock"]', function() {
+        const row = $(this).closest('tr');
+        const item_code = row.find('td:eq(1)').text();
+        const item_name = row.find('td:eq(0)').text();
+        const current_stock = parseInt(row.find('td:eq(3)').text());
+        
+        const qty = prompt(`Enter quantity to remove from stock for "${item_name}" (${item_code}):\nCurrent stock: ${current_stock} pcs`, "1");
+        if (qty === null) return; // User cancelled
+        
+        const quantity = parseInt(qty);
+        if (isNaN(quantity) || quantity <= 0) {
+            alert('Please enter a valid positive number.');
+            return;
+        }
+        
+        if (quantity > current_stock) {
+            alert(`Cannot remove more than current stock (${current_stock} pcs).`);
+            return;
+        }
+        
+        $.ajax({
+            url: '/inventory/update-stock',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ item_code, qty: quantity }),
+            success: function() {
+                alert('Stock updated successfully!');
+                location.reload();
+            },
+            error: function(xhr) {
+                let errorMsg = 'Failed to update stock.';
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    errorMsg = xhr.responseJSON.message;
+                }
+                alert(errorMsg);
+            }
+        });
+    });
+    
+    $('#inventoryTable').on('click', '.btn-outline-primary[title="Edit Product"]', function() {
+        const row = $(this).closest('tr');
+        const item_code = row.find('td:eq(1)').text();
+        
+        // Fetch product details
+        $.ajax({
+            url: `/inventory/product/${item_code}`,
+            method: 'GET',
+            success: function(response) {
+                if (response.success) {
+                    // Create and show edit modal
+                    showEditProductModal(response.product);
+                } else {
+                    alert(response.message || 'Failed to get product details.');
+                }
+            },
+            error: function() {
+                alert('Failed to get product details.');
+            }
+        });
+    });
+    
+    $('#inventoryTable').on('click', '.btn-outline-danger[title="Delete Product"]', function() {
+        if (confirm('Are you sure you want to delete this item?')) {
+            const row = $(this).closest('tr');
+            const item_code = row.find('td:eq(1)').text();
+            $.ajax({
+                url: '/inventory/delete',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ item_code }),
+                success: function() {
+                    alert('Item deleted!');
+                    location.reload();
+                },
+                error: function() {
+                    alert('Failed to delete item.');
+                }
+            });
+        }
+    });
+
+    // Form validation and submission for adding new product
+    $('#saveProductBtn').on('click', function() {
+        // Validate form
+        if (!$('#addProductForm')[0].checkValidity()) {
+            $('#addProductForm')[0].reportValidity();
+            return;
+        }
+
+        // Collect form data
+        const newProduct = {
+            item_name: $('#item_name').val(),
+            item_code: $('#item_code').val(),
+            category: $('#category').val(),
+            stock_qty: parseInt($('#stock_qty').val()),
+            purchase_price: parseFloat($('#purchase_price').val()),
+            selling_price: parseFloat($('#selling_price').val())
+        };
+
+        // Send AJAX request to add product
+        $.ajax({
+            url: '/inventory/add',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(newProduct),
+            success: function(response) {
+                if (response.success) {
+                    // Show success message
+                    alert('Product added successfully!');
+                    
+                    // Close modal and reset form
+                    $('#addProductModal').modal('hide');
+                    $('#addProductForm')[0].reset();
+                    
+                    // Refresh the inventory table
+                    location.reload();
+                } else {
+                    alert(response.message || 'Failed to add product.');
+                }
+            },
+            error: function(xhr) {
+                let errorMsg = 'Failed to add product.';
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    errorMsg = xhr.responseJSON.message;
+                }
+                alert(errorMsg);
+            }
+        });
+    });
+
+    // Reset form when modal is closed
+    $('#addProductModal').on('hidden.bs.modal', function() {
+        $('#addProductForm')[0].reset();
+    });
+
+    // Handle "Add New Category" link
+    $('#addNewCategoryLink').on('click', function(e) {
+        e.preventDefault();
+        const newCategory = prompt('Enter new category name:');
+        if (newCategory && newCategory.trim()) {
+            // Add the new category to the dropdown
+            const option = new Option(newCategory.trim(), newCategory.trim());
+            $('#category').append(option);
+            // Select the new category
+            $('#category').val(newCategory.trim());
+        }
+    });
+
+    // Handle "Add New Category" link in edit modal
+    $('#editNewCategoryLink').on('click', function(e) {
+        e.preventDefault();
+        const newCategory = prompt('Enter new category name:');
+        if (newCategory && newCategory.trim()) {
+            // Add the new category to the dropdown
+            const option = new Option(newCategory.trim(), newCategory.trim());
+            $('#edit_category').append(option);
+            // Select the new category
+            $('#edit_category').val(newCategory.trim());
+        }
+    });
+
+    // Function to show edit product modal
+    function showEditProductModal(product) {
+        // Fill form with product details
+        $('#edit_item_code').val(product.item_code);
+        $('#edit_item_code_display').val(product.item_code);
+        $('#edit_item_name').val(product.item_name);
+        $('#edit_category').val(product.category);
+        $('#edit_stock_qty').val(product.stock_qty);
+        $('#edit_purchase_price').val(product.purchase_price);
+        $('#edit_selling_price').val(product.selling_price);
+        
+        // Show modal
+        $('#editProductModal').modal('show');
+    }
+    
+    // Handle update product button click
+    $('#updateProductBtn').on('click', function() {
+        // Validate form
+        if (!$('#editProductForm')[0].checkValidity()) {
+            $('#editProductForm')[0].reportValidity();
+            return;
+        }
+        
+        // Collect form data
+        const updatedProduct = {
+            item_code: $('#edit_item_code').val(),
+            item_name: $('#edit_item_name').val(),
+            category: $('#edit_category').val(),
+            purchase_price: parseFloat($('#edit_purchase_price').val()),
+            selling_price: parseFloat($('#edit_selling_price').val())
+        };
+        
+        // Send AJAX request to update product
+        $.ajax({
+            url: '/inventory/update',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(updatedProduct),
+            success: function(response) {
+                if (response.success) {
+                    // Show success message
+                    alert('Product updated successfully!');
+                    
+                    // Close modal
+                    $('#editProductModal').modal('hide');
+                    
+                    // Refresh the inventory table
+                    location.reload();
+                } else {
+                    alert(response.message || 'Failed to update product.');
+                }
+            },
+            error: function(xhr) {
+                let errorMsg = 'Failed to update product.';
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    errorMsg = xhr.responseJSON.message;
+                }
+                alert(errorMsg);
+            }
+        });
+    });
+});
+</script>
+    
+    <!-- JavaScript Libraries - Load in correct order -->
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/topnav.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+{
+  "name": "bms360",
+  "version": "1.0.0",
+  "description": "Business Management System 360",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "dev": "NODE_ENV=development nodemon main.js",
+    "prod": "NODE_ENV=production node main.js",
+    "setup": "node setup_db.js",
+    "setup-security": "node scripts/update-security-schema.js",
+    "security-check": "npm audit",
+    "security-fix": "npm audit fix",
+    "pm2:start": "pm2 start ecosystem.config.js",
+    "pm2:prod": "pm2 start ecosystem.config.js --env production",
+    "pm2:stop": "pm2 stop bms360",
+    "pm2:restart": "pm2 restart bms360",
+    "pm2:reload": "pm2 reload bms360",
+    "pm2:delete": "pm2 delete bms360",
+    "pm2:logs": "pm2 logs bms360",
+    "pm2:monit": "pm2 monit",
+    "logs": "tail -f logs/app.log",
+    "logs:error": "tail -f logs/error.log",
+    "logs:security": "tail -f logs/security.log",
+    "backup:db": "mysqldump -u $DB_USER -p$DB_PASSWORD $DB_NAME > backups/backup-$(date +%Y%m%d-%H%M%S).sql",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^2.2.0",
+    "compression": "^1.7.4",
+    "connect-session-sequelize": "^7.1.7",
+    "cors": "^2.8.5",
+    "csurf": "^1.11.0",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.1.5",
+    "express-session": "^1.18.1",
+    "express-validator": "^7.0.1",
+    "helmet": "^7.1.0",
+    "hpp": "^0.2.3",
+    "mysql2": "^3.14.0",
+    "winston": "^3.11.0",
+    "xss": "^1.0.14"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "keywords": [
+    "business",
+    "management",
+    "system",
+    "inventory",
+    "sales",
+    "finance"
+  ],
+  "author": "BMS360 Team",
+  "license": "MIT"
+}

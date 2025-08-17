@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Blank Page - business 360°</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="assets/css/Billing-Table-with-Add-Row--Fixed-Header-Feature.css">
+    <link rel="stylesheet" href="assets/css/Contact-Form-by-Moorcam.css">
+    <link rel="stylesheet" href="assets/css/Features-Cards-icons.css">
+    <link rel="stylesheet" href="assets/css/Pretty-Table-tables.css">
+    <link rel="stylesheet" href="assets/css/Pretty-Table.css">
+    <link rel="stylesheet" href="assets/css/Profile-Edit-Form-styles.css">
+    <link rel="stylesheet" href="assets/css/Profile-Edit-Form.css">
+    <link rel="stylesheet" href="assets/mycss/small_card.css">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <nav class="navbar align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 navbar-dark">
+            <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
+                    <div class="sidebar-brand-text mx-3"><span>business 360°</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/profile"><i class="fas fa-user"></i><span>Profile</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/employee"><i class="fas fa-table"></i><span>Employee</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/inventory"><i class="fas fa-boxes fa-fw me-2"></i><span>Inventory</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/billing"> <i class="fas fa-file-invoice-dollar fa-fw me-2"></i><span>Billing</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/sales"> <i class="fas fa-chart-bar fa-fw me-2"></i><span>Sales dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/finance"><i class="fas fa-money-bill-wave fa-fw me-2"></i><span>fiance dashboard</span></a></li>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+            </div>
+        </nav>
+       <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <div class="container-fluid">
+                        <!-- Sidebar Toggle -->
+                        <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        
+                        <!-- Greeting - Responsive -->
+                        <div class="d-flex align-items-center flex-grow-1">
+                            <div class="me-3">
+                                <h5 class="mb-0 text-gray-800 d-flex align-items-center">
+                                   <i class="fas fa-sun text-warning me-2" id="greetingIcon"></i>
+                                    <span class="d-none d-sm-inline" id="greetingText">Good Morning,</span>
+                                 </h5>
+                                <small class="text-muted d-none d-md-inline">Welcome back to your business dashboard</small>
+                            </div>
+                        </div>
+                        
+                        <!-- Right side of navbar -->
+                        <ul class="navbar-nav ms-auto">
+                            <!-- Calendar - Responsive -->
+                            <li class="nav-item">
+                               <div class="d-flex align-items-center px-3 py-2 bg-light rounded-pill" id="dateContainer">
+                                    <i class="fas fa-calendar-day text-primary me-2"></i>
+                                    <span class="me-1 fw-semibold d-none d-sm-inline">Today:</span>
+                                    <span class="d-none d-md-inline" id="fullDate">Thursday, July 10, 2025</span>
+                                    <span class="d-inline d-md-none" id="shortDate">Jul 10</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+<!--starting point ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+<!-- add employee form -->
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card shadow-lg border-0 rounded-lg overflow-hidden">
+                <div class="card-header bg-gradient-primary text-white text-center p-4 position-relative">
+                    <div class="position-absolute top-0 start-0 w-100 h-100 bg-primary opacity-75"></div>
+                    <div class="position-relative">
+                        <i class="fas fa-user-plus fa-2x mb-2"></i>
+                        <h3 class="mb-0 fw-bold">Add New Employee</h3>
+                        <p class="text-white-50 small mb-0">Enter employee details below</p>
+                    </div>
+                </div>
+                <div class="card-body p-5">
+                    <form id="employeeForm">
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control border-0 bg-light shadow-sm" id="empName" name="name" placeholder="Enter full name" required>
+                                    <label for="empName"><i class="fas fa-user text-primary me-2"></i>Full Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control border-0 bg-light shadow-sm" id="empEmail" name="email" placeholder="Enter email address" required>
+                                    <label for="empEmail"><i class="fas fa-envelope text-primary me-2"></i>Email Address</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <div class="form-floating">
+                                    <input type="tel" class="form-control border-0 bg-light shadow-sm" id="empPhone" name="phone" placeholder="Enter phone number" required>
+                                    <label for="empPhone"><i class="fas fa-phone text-primary me-2"></i>Phone Number</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select class="form-select border-0 bg-light shadow-sm" id="empDept" name="department" required>
+                                        <option value="" disabled selected>Select department</option>
+                                        <option>HR</option>
+                                        <option>Finance</option>
+                                        <option>Sales</option>
+                                        <option>IT</option>
+                                        <option>Operations</option>
+                                    </select>
+                                    <label for="empDept"><i class="fas fa-briefcase text-primary me-2"></i>Department</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control border-0 bg-light shadow-sm" id="empSalary" name="salary" placeholder="Enter salary" min="0" required>
+                                    <label for="empSalary"><i class="fas fa-dollar-sign text-primary me-2"></i>Salary</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="date" class="form-control border-0 bg-light shadow-sm" id="empDOJ" name="date_of_joining" required>
+                                    <label for="empDOJ"><i class="fas fa-calendar-alt text-primary me-2"></i>Date of Joining</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="password" class="form-control border-0 bg-light shadow-sm" id="empPassword" name="password" placeholder="Enter password" required>
+                                    <label for="empPassword"><i class="fas fa-lock text-primary me-2"></i>Password</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Alert message area -->
+                        <div id="alertMessage" class="alert d-none mb-4" role="alert"></div>
+                        
+                        <div class="row mt-5">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <button type="button" id="cancelBtn" class="btn btn-outline-secondary btn-lg w-100 py-3"><i class="fas fa-times me-2"></i>Cancel</button>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary btn-lg w-100 py-3 shadow-sm"><i class="fas fa-user-plus me-2"></i>Add Employee</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer bg-light p-4 border-0">
+                    <div class="small text-muted text-center">All fields are required. Employee will receive an email confirmation.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- add employee form -->
+<!------------------------------------------------------------------------------------------------------***************************************************************************************************-------------------------------------------------------------------------->
+               <!--footer mama-->
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © business 360° 2025</span></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/Billing-Table-with-Add-Row--Fixed-Header-Feature-Billing-Table-with-Add-Row--Fixed-Header.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="assets/js/Profile-Edit-Form-profile.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/topnav.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const employeeForm = document.getElementById('employeeForm');
+            const alertMessage = document.getElementById('alertMessage');
+            const cancelBtn = document.getElementById('cancelBtn');
+            
+            // Handle form submission
+            employeeForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Create FormData object
+                const formData = new FormData(employeeForm);
+                
+                // Convert FormData to JSON object
+                const employeeData = {};
+                formData.forEach((value, key) => {
+                    employeeData[key] = value;
+                });
+                
+                // Send AJAX request
+                fetch('/new_emp/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(employeeData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Show success message
+                        alertMessage.classList.remove('d-none', 'alert-danger');
+                        alertMessage.classList.add('alert-success');
+                        alertMessage.innerHTML = '<i class="fas fa-check-circle me-2"></i>' + data.message;
+                        
+                        // Reset form
+                        employeeForm.reset();
+                        
+                        // Redirect to employee list after 2 seconds
+                        setTimeout(() => {
+                            window.location.href = '/employee';
+                        }, 2000);
+                    } else {
+                        // Show error message
+                        alertMessage.classList.remove('d-none', 'alert-success');
+                        alertMessage.classList.add('alert-danger');
+                        alertMessage.innerHTML = '<i class="fas fa-exclamation-circle me-2"></i>' + data.error;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Show error message
+                    alertMessage.classList.remove('d-none', 'alert-success');
+                    alertMessage.classList.add('alert-danger');
+                    alertMessage.innerHTML = '<i class="fas fa-exclamation-circle me-2"></i>An error occurred. Please try again.';
+                });
+            });
+            
+            // Handle cancel button click
+            cancelBtn.addEventListener('click', function() {
+                window.location.href = '/employee';
+            });
+        });
+    </script>
+</body>
+
+</html>

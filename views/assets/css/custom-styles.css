@@ -1,0 +1,148 @@
+/* Custom modern styles for Business 360° */
+
+/* Sidebar improvements */
+.sidebar {
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    transition: all 0.3s ease;
+}
+
+.sidebar .nav-item .nav-link {
+    border-radius: 0.35rem;
+    margin: 0.2rem 1rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.sidebar .nav-item .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+}
+
+.sidebar .nav-item .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    font-weight: 600;
+}
+
+.sidebar-brand-icon {
+    transition: transform 0.3s ease;
+}
+
+.sidebar-brand:hover .sidebar-brand-icon {
+    transform: scale(1.1);
+}
+
+/* Profile dropdown improvements */
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    border-radius: 0.5rem;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(78, 115, 223, 0.05);
+    transition: all 0.2s ease;
+}
+
+.img-profile {
+    transition: all 0.2s ease;
+    border: 3px solid transparent;
+}
+
+.dropdown-toggle:hover .img-profile {
+    border-color: rgba(78, 115, 223, 0.2);
+}
+
+/* Card enhancements */
+.card {
+    border: none;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.card-header {
+    background-color: white;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Button styling */
+.btn-primary {
+    box-shadow: 0 0.125rem 0.25rem rgba(78, 115, 223, 0.4);
+    transition: all 0.2s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0.3rem 0.5rem rgba(78, 115, 223, 0.4);
+}
+
+/* Additional animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animated-element {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* Layout improvements */
+#content-wrapper {
+    background-color: #f8f9fc;
+}
+
+.topbar {
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Improved scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Sidebar collapsed state */
+#sidebar.collapsed {
+    width: 70px !important;
+    min-width: 70px !important;
+    max-width: 70px !important;
+    transition: all 0.2s;
+}
+#sidebar.collapsed .sidebar-brand-icon {
+    margin: 0 auto;
+}
+#sidebar.collapsed .sidebar-brand-text {
+    display: none !important;
+}
+#sidebar.collapsed .nav-link {
+    justify-content: center;
+}
+#sidebar.collapsed .nav-link .sidebar-text {
+    display: none !important;
+}
+#sidebar.collapsed .nav-link i {
+    margin-right: 0 !important;
+}
+
+/* Sidebar expanded state (default) */
+#sidebar {
+    width: 250px;
+    min-width: 250px;
+    max-width: 250px;
+    transition: all 0.2s;
+}
