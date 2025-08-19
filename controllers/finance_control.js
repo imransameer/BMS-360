@@ -126,6 +126,17 @@ const getAllMaintenanceExpenses = async (req, res) => {
     }
 };
 
+// Get today's expense details
+const getTodayExpensesDetails = async (req, res) => {
+    try {
+        const expenses = await financeModel.getTodayExpensesDetails();
+        res.json(expenses);
+    } catch (err) {
+        console.error('Error fetching today\'s expense details:', err);
+        res.status(500).json({ error: 'Failed to fetch today\'s expenses' });
+    }
+};
+
 // Add a new supplier khata entry
 const addSupplierKhata = async (req, res) => {
     try {
@@ -308,6 +319,7 @@ module.exports = {
     getSalaryDetails,
     addMaintenanceExpense,
     getAllMaintenanceExpenses,
+    getTodayExpensesDetails,
     addSupplierKhata,
     getAllSupplierKhata,
     getCustomerKhataDetails,

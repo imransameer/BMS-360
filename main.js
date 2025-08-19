@@ -7,6 +7,7 @@ const compression = require('compression');
 const cors = require('cors');
 const config = require('./config/config');
 const { logger } = require('./utils/logger');
+const { employeeRoutingRestrictions } = require('./middleware/auth');
 
 // Initialize Express app
 const app = express();
@@ -78,6 +79,9 @@ app.use((req, res, next) => {
     
     next();
 });
+
+// Employee routing restrictions - redirect employees to their departments
+app.use(employeeRoutingRestrictions);
 
 // Route imports
 const indexroute = require('./routes/index');

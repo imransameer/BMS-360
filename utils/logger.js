@@ -138,6 +138,61 @@ const security = {
             attempts,
             timestamp: new Date().toISOString()
         });
+    },
+
+    unauthorizedAccess: (ip, path, activity, details) => {
+        logger.warn('Unauthorized access attempt', {
+            event: 'unauthorized_access',
+            ip,
+            path,
+            activity,
+            details,
+            timestamp: new Date().toISOString()
+        });
+    },
+
+    inputValidationFailure: (userId, ip, activity, details) => {
+        logger.warn('Input validation failure', {
+            event: 'input_validation_failure',
+            userId,
+            ip,
+            activity,
+            details,
+            timestamp: new Date().toISOString()
+        });
+    },
+
+    dataAccess: (userId, ip, resource, action, details) => {
+        logger.info('Data access', {
+            event: 'data_access',
+            userId,
+            ip,
+            resource,
+            action,
+            details,
+            timestamp: new Date().toISOString()
+        });
+    },
+
+    dataModification: (userId, ip, resource, details) => {
+        logger.info('Data modification', {
+            event: 'data_modification',
+            userId,
+            ip,
+            resource,
+            details,
+            timestamp: new Date().toISOString()
+        });
+    },
+
+    accountLocked: (userId, ip, reason) => {
+        logger.warn('Account locked', {
+            event: 'account_locked',
+            userId,
+            ip,
+            reason,
+            timestamp: new Date().toISOString()
+        });
     }
 };
 

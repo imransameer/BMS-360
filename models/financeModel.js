@@ -197,6 +197,33 @@ async function getAllMaintenanceExpenses() {
     }
 }
 
+// Get today's expense details
+async function getTodayExpensesDetails() {
+    try {
+        const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+        const query = `
+            SELECT 
+                id,
+                entry_date,
+                expense_type,
+                brief,
+                amount,
+                created_at
+            FROM 
+                maintenance_expenses
+            WHERE DATE(entry_date) = ?
+            ORDER BY 
+                created_at DESC
+        `;
+        
+        const [rows] = await db.query(query, [today]);
+        return rows;
+    } catch (err) {
+        console.error('Error fetching today\'s expense details:', err);
+        throw err;
+    }
+}
+
 // Get total supplier khata amount
 async function getTotalSupplierKhataPending() {
     try {
@@ -394,6 +421,7 @@ module.exports = {
     getTotalSalaries,
     getTodayIncome,
     getTodayExpenses,
+    getTodayExpensesDetails,
     getTotalDiscount,
     getTotalGST,
     getTotalCustomerKhataPending,

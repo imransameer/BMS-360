@@ -5,28 +5,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Table - business 360°</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
-    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="assets/css/Billing-Table-with-Add-Row--Fixed-Header-Feature.css">
-    <link rel="stylesheet" href="assets/css/Contact-Form-by-Moorcam.css">
-    <link rel="stylesheet" href="assets/css/Features-Cards-icons.css">
-    <link rel="stylesheet" href="assets/css/Pretty-Table-tables.css">
-    <link rel="stylesheet" href="assets/css/Pretty-Table.css">
-    <link rel="stylesheet" href="assets/css/Profile-Edit-Form-styles.css">
-    <link rel="stylesheet" href="assets/css/Profile-Edit-Form.css">
+    <link rel="stylesheet" href="/assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/assets/css/Billing-Table-with-Add-Row--Fixed-Header-Feature.css">
+    <link rel="stylesheet" href="/assets/css/Contact-Form-by-Moorcam.css">
+    <link rel="stylesheet" href="/assets/css/Features-Cards-icons.css">
+    <link rel="stylesheet" href="/assets/css/Pretty-Table-tables.css">
+    <link rel="stylesheet" href="/assets/css/Pretty-Table.css">
+    <link rel="stylesheet" href="/assets/css/Profile-Edit-Form-styles.css">
+    <link rel="stylesheet" href="/assets/css/Profile-Edit-Form.css">
     <style>
-        /* Ensure icons are visible */
-        .bi, .fas, .far, .fab {
-            font-family: 'bootstrap-icons', 'Font Awesome 5 Free', 'Font Awesome 5 Brands' !important;
-            display: inline-block;
-            font-style: normal;
-            font-variant: normal;
-            text-rendering: auto;
-            line-height: 1;
-        }
-        
         /* Button group improvements */
         .btn-group-sm .btn {
             padding: 0.25rem 0.5rem;
@@ -63,11 +52,18 @@
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="/profile"><i class="fas fa-user"></i><span>Profile</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="/employee"><i class="fas fa-table"></i><span>Employee</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/employee"><i class="fas fa-users fa-fw me-2"></i><span>Employee</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="/inventory"><i class="fas fa-boxes fa-fw me-2"></i><span>Inventory</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="/billing"> <i class="fas fa-file-invoice-dollar fa-fw me-2"></i><span>Billing</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="/sales"> <i class="fas fa-chart-bar fa-fw me-2"></i><span>Sales dashboard</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="/finance"><i class="fas fa-money-bill-wave fa-fw me-2"></i><span>fiance dashboard</span></a></li>
+                    <li class="nav-item mt-3">
+                        <hr class="sidebar-divider">
+                        <a class="nav-link text-danger" href="#" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -169,7 +165,7 @@
                     <div class="card shadow">
                         <div class="card-header py-3 d-flex justify-content-between align-items-center">
                             <p class="text-primary m-0 fw-bold">Employee Information</p>
-                            <a href="/employee/add" class="btn btn-primary btn-sm">Add New Employee</a>
+                            <a href="/new_emp" class="btn btn-primary btn-sm">Add New Employee</a>
                         </div>
                         <div class="card-body">
                             <% if (typeof error !== 'undefined' && error) { %>
@@ -390,12 +386,13 @@
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/bs-init.js"></script>
-    <script src="assets/js/Billing-Table-with-Add-Row--Fixed-Header-Feature-Billing-Table-with-Add-Row--Fixed-Header.js"></script>
-    <script src="assets/js/Profile-Edit-Form-profile.js"></script>
-    <script src="assets/js/theme.js"></script>
-    <script src="assets/js/topnav.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/js/bs-init.js"></script>
+    <script src="/assets/js/Billing-Table-with-Add-Row--Fixed-Header-Feature-Billing-Table-with-Add-Row--Fixed-Header.js"></script>
+    <script src="/assets/js/Profile-Edit-Form-profile.js"></script>
+    <script src="/assets/js/theme.js"></script>
+    <script src="/assets/js/topnav.js"></script>
+    <script src="/assets/js/logout.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

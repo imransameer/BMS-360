@@ -28,7 +28,7 @@
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="/profile"><i class="fas fa-user"></i><span>Profile</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="/employee"><i class="fas fa-table"></i><span>Employee</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/employee"><i class="fas fa-users fa-fw me-2"></i><span>Employee</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="/inventory"><i class="fas fa-boxes fa-fw me-2"></i><span>Inventory</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="/billing"> <i class="fas fa-file-invoice-dollar fa-fw me-2"></i><span>Billing</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="/sales"> <i class="fas fa-chart-bar fa-fw me-2"></i><span>Sales dashboard</span></a></li>
@@ -171,7 +171,7 @@
                                 <div class="card shadow">
                                     <div class="card-header py-3 d-flex justify-content-between align-items-center">
                                         <h6 class="text-primary fw-bold m-0">
-                                            <i class="fas fa-money-bill-alt me-2"></i>
+                                            <i class="fas fa-money-bill-wave me-2"></i>
                                             Salary Details
                                         </h6>
                                         <button class="btn btn-sm btn-primary" type="button">
@@ -332,8 +332,12 @@
                                                                 <td><%= att.leave_type || '-' %></td>
                                                                 <td><%= att.reason || '-' %></td>
                                                                 <td>
-                                                                    <button class="btn btn-sm btn-primary me-1">Edit</button>
-                                                                    <button class="btn btn-sm btn-danger">Delete</button>
+                                                                    <button class="btn btn-sm btn-primary me-1" title="Edit Record">
+                                                                        <i class="fas fa-edit"></i>
+                                                                    </button>
+                                                                    <button class="btn btn-sm btn-danger" title="Delete Record">
+                                                                        <i class="fas fa-trash"></i>
+                                                                    </button>
                                                                 </td>
                                                             </tr>
                                                         <% }); %>

@@ -1,4 +1,4 @@
-const db = require('./mainModel');
+ const db = require('./mainModel');
 const bcrypt = require('bcrypt');
 const { logger } = require('../utils/logger');
 const loggerModule = require('../utils/logger');
@@ -43,7 +43,7 @@ class AuthModel {
                         locked_until,
                         'employee' as user_type
                     FROM employees 
-                    WHERE email = ? AND status = 'active'
+                    WHERE email = ? AND status = 'Active'
                 `, [email]);
             }
 
@@ -69,8 +69,17 @@ class AuthModel {
                 };
             }
 
-            // Verify password
-            const passwordMatch = await bcrypt.compare(password, user.password);
+            // Verify password - handle both hashed and plain text passwords
+            let passwordMatch = false;
+            
+            // Check if password is bcrypt hashed (starts with $2 and has length >= 59)
+            if (user.password.startsWith('$2') && user.password.length >= 59) {
+                // Use bcrypt comparison for hashed passwords
+                passwordMatch = await bcrypt.compare(password, user.password);
+            } else {
+                // Plain text comparison for non-hashed passwords
+                passwordMatch = password === user.password;
+            }
             
             if (!passwordMatch) {
                 // Increment failed login attempts
@@ -120,42 +129,76 @@ class AuthModel {
      */
     async recordFailedAttempt(userId, userType) {
         try {
-            const tableName = userType === 'admin' ? 'user_details' : 'employees';
             const maxAttempts = config.security.maxLoginAttempts || 5;
             const lockoutTime = config.security.lockoutDuration || 900000; // 15 minutes
 
-            // Get current attempt count
-            const [results] = await db.query(`
-                SELECT login_attempts FROM ${tableName} WHERE id = ?
-            `, [userId]);
+            if (userType === 'admin') {
+                // Handle admin users (user_details table has login_attempts column)
+                const [results] = await db.query(`
+                    SELECT login_attempts FROM user_details WHERE id = ?
+                `, [userId]);
 
-            if (results.length === 0) return;
+                if (results.length === 0) return;
 
-            const currentAttempts = (results[0].login_attempts || 0) + 1;
-            let updateQuery;
-            let params;
+                const currentAttempts = (results[0].login_attempts || 0) + 1;
+                let updateQuery;
+                let params;
 
-            if (currentAttempts >= maxAttempts) {
-                // Lock the account
-                const lockUntil = new Date(Date.now() + lockoutTime);
-                updateQuery = `
-                    UPDATE ${tableName} 
-                    SET login_attempts = ?, locked_until = ? 
-                    WHERE id = ?
-                `;
-                params = [currentAttempts, lockUntil, userId];
-                loggerModule.security.accountLocked(userId, null, `Account locked after ${currentAttempts} failed attempts`);
+                if (currentAttempts >= maxAttempts) {
+                    // Lock the account
+                    const lockUntil = new Date(Date.now() + lockoutTime);
+                    updateQuery = `
+                        UPDATE user_details 
+                        SET login_attempts = ?, locked_until = ? 
+                        WHERE id = ?
+                    `;
+                    params = [currentAttempts, lockUntil, userId];
+                    loggerModule.security.accountLocked(userId, null, `Account locked after ${currentAttempts} failed attempts`);
+                } else {
+                    // Just increment attempts
+                    updateQuery = `
+                        UPDATE user_details 
+                        SET login_attempts = ? 
+                        WHERE id = ?
+                    `;
+                    params = [currentAttempts, userId];
+                }
+
+                await db.query(updateQuery, params);
             } else {
-                // Just increment attempts
-                updateQuery = `
-                    UPDATE ${tableName} 
-                    SET login_attempts = ? 
-                    WHERE id = ?
-                `;
-                params = [currentAttempts, userId];
-            }
+                // Handle employee users (employees table now has login_attempts column)
+                const [results] = await db.query(`
+                    SELECT login_attempts FROM employees WHERE id = ?
+                `, [userId]);
 
-            await db.query(updateQuery, params);
+                if (results.length === 0) return;
+
+                const currentAttempts = (results[0].login_attempts || 0) + 1;
+                let updateQuery;
+                let params;
+
+                if (currentAttempts >= maxAttempts) {
+                    // Lock the account
+                    const lockUntil = new Date(Date.now() + lockoutTime);
+                    updateQuery = `
+                        UPDATE employees 
+                        SET login_attempts = ?, locked_until = ? 
+                        WHERE id = ?
+                    `;
+                    params = [currentAttempts, lockUntil, userId];
+                    loggerModule.security.accountLocked(userId, null, `Employee account locked after ${currentAttempts} failed attempts`);
+                } else {
+                    // Just increment attempts
+                    updateQuery = `
+                        UPDATE employees 
+                        SET login_attempts = ? 
+                        WHERE id = ?
+                    `;
+                    params = [currentAttempts, userId];
+                }
+
+                await db.query(updateQuery, params);
+            }
 
         } catch (error) {
             logger.error('Error recording failed attempt:', error);
@@ -169,13 +212,20 @@ class AuthModel {
      */
     async clearFailedAttempts(userId, userType) {
         try {
-            const tableName = userType === 'admin' ? 'user_details' : 'employees';
-            
-            await db.query(`
-                UPDATE ${tableName} 
-                SET login_attempts = 0, locked_until = NULL 
-                WHERE id = ?
-            `, [userId]);
+            if (userType === 'admin') {
+                await db.query(`
+                    UPDATE user_details 
+                    SET login_attempts = 0, locked_until = NULL 
+                    WHERE id = ?
+                `, [userId]);
+            } else {
+                // Clear for employees as well since we now have these columns
+                await db.query(`
+                    UPDATE employees 
+                    SET login_attempts = 0, locked_until = NULL 
+                    WHERE id = ?
+                `, [userId]);
+            }
 
         } catch (error) {
             logger.error('Error clearing failed attempts:', error);
@@ -192,7 +242,7 @@ class AuthModel {
             // Try to update in user_details first
             const [result1] = await db.query(`
                 UPDATE user_details 
-                SET last_login_ip = ? 
+                SET last_login_at = NOW(), last_login_ip = ? 
                 WHERE id = ?
             `, [ipAddress, userId]);
 
@@ -291,7 +341,7 @@ class AuthModel {
                         status,
                         'employee' as user_type
                     FROM employees 
-                    WHERE id = ? AND status = 'active'
+                    WHERE id = ? AND status = 'Active'
                 `, [userId]);
             }
 

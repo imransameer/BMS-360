@@ -1,6 +1,7 @@
 const path = require('path'); 
 const billingModel = require('../models/billingModel');
 const inventoryModel = require('../models/inventoryModel');
+const profileModel = require('../models/profileModel');
 
 const getbilling = (req, res) => {
     res.sendFile(path.join(__dirname, '../views', 'billing.html'));
@@ -112,8 +113,62 @@ const generatePDF = async (req, res) => {
     }
 };
 
+// Function to get business details for billing
+const getBusinessDetails = async (req, res) => {
+    try {
+        // Try to get the current user's business details first
+        let adminId = 1; // Default fallback to admin user ID 1
+        
+        // If user session exists, use the admin user or first admin user
+        if (req.session && req.session.user) {
+            if (req.session.user.isAdmin || req.session.user.user_type === 'admin') {
+                adminId = req.session.user.id;
+            }
+        }
+
+        // Fetch business details from profile model
+        const result = await profileModel.getUserById(adminId);
+        
+        let businessDetails = {
+            businessName: 'BUSINESS 360°',
+            tagline: 'Business Management System',
+            contactAddress: 'Your Business Address', 
+            email: 'info@business360.com'
+        };
+
+        if (result.success && result.data) {
+            // Use fetched data if available, otherwise use defaults
+            businessDetails = {
+                businessName: result.data.business_name || businessDetails.businessName,
+                tagline: result.data.tagline || businessDetails.tagline,
+                contactAddress: result.data.contact_address || businessDetails.contactAddress,
+                email: result.data.email || businessDetails.email
+            };
+        }
+
+        res.json({
+            success: true,
+            data: businessDetails
+        });
+
+    } catch (error) {
+        console.error('Error fetching business details:', error);
+        // Return default values on error
+        res.json({
+            success: true,
+            data: {
+                businessName: 'BUSINESS 360°',
+                tagline: 'Business Management System',
+                contactAddress: 'Your Business Address',
+                email: 'info@business360.com'
+            }
+        });
+    }
+};
+
 module.exports = {
     getbilling,
     postBilling,
-    generatePDF
+    generatePDF,
+    getBusinessDetails
 };

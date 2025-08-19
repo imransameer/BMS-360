@@ -11,8 +11,8 @@ router.get('/', isAuthenticated, profileController.showProfile);
 // Get user profile data - requires authentication (not necessarily admin)
 router.get('/api/user', isAuthenticated, profileController.getUserProfile);
 
-// Update user profile with validation - admin only for now
-router.post('/api/user', isAdmin, [
+// Update user profile with validation - allow authenticated users
+router.post('/api/user', isAuthenticated, [
     body('first_name').trim().isLength({ min: 1 }).withMessage('First name is required'),
     body('last_name').trim().isLength({ min: 1 }).withMessage('Last name is required'),
     body('email').isEmail().normalizeEmail().withMessage('Valid email is required')

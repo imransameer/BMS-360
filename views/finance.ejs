@@ -5,16 +5,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Dashboard - business 360°</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
-    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="assets/css/Billing-Table-with-Add-Row--Fixed-Header-Feature.css">
-    <link rel="stylesheet" href="assets/css/Contact-Form-by-Moorcam.css">
-    <link rel="stylesheet" href="assets/css/Features-Cards-icons.css">
-    <link rel="stylesheet" href="assets/css/Pretty-Table-tables.css">
-    <link rel="stylesheet" href="assets/css/Pretty-Table.css">
-    <link rel="stylesheet" href="assets/css/Profile-Edit-Form-styles.css">
-    <link rel="stylesheet" href="assets/css/Profile-Edit-Form.css">
+    <link rel="stylesheet" href="/assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/assets/css/Billing-Table-with-Add-Row--Fixed-Header-Feature.css">
+    <link rel="stylesheet" href="/assets/css/Contact-Form-by-Moorcam.css">
+    <link rel="stylesheet" href="/assets/css/Features-Cards-icons.css">
+    <link rel="stylesheet" href="/assets/css/Pretty-Table-tables.css">
+    <link rel="stylesheet" href="/assets/css/Pretty-Table.css">
+    <link rel="stylesheet" href="/assets/css/Profile-Edit-Form-styles.css">
+    <link rel="stylesheet" href="/assets/css/Profile-Edit-Form.css">
     <style>
         /* Custom styles to fix UI glitches */
         .text-purple {
@@ -59,11 +59,18 @@
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="/profile"><i class="fas fa-user"></i><span>Profile</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="/employee"><i class="fas fa-table"></i><span>Employee</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/employee"><i class="fas fa-users fa-fw me-2"></i><span>Employee</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="/inventory"><i class="fas fa-boxes fa-fw me-2"></i><span>Inventory</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="/billing"> <i class="fas fa-file-invoice-dollar fa-fw me-2"></i><span>Billing</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="/sales"> <i class="fas fa-chart-bar fa-fw me-2"></i><span>Sales dashboard</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="/finance"><i class="fas fa-money-bill-wave fa-fw me-2"></i><span>fiance dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/finance"><i class="fas fa-money-bill-wave fa-fw me-2"></i><span>Finance dashboard</span></a></li>
+                    <li class="nav-item mt-3">
+                        <hr class="sidebar-divider">
+                        <a class="nav-link text-danger" href="#" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -175,9 +182,6 @@
                     </div>
                 </div>
                 <!-- End Financial Insights section -->
-
-                <!-- Chart.js Script (single import) -->
-                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                 
                 <!-- SECTION 2: INCOME & EXPENSE TRACKER -->
                 <div class="container my-5">
@@ -233,71 +237,6 @@
                     </div>
                 </div>
                 <!-- End SECTION 2 -->
-                
-                <!-- SECTION 2.5: INCOME VS EXPENSE CHART -->
-                <div class="container my-5">
-                    <h4 class="mb-4"><span role="img" aria-label="chart">📊</span> WEEKLY INCOME VS EXPENSE OVERVIEW</h4>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card shadow">
-                                <div class="card-body">
-                                    <div class="chart-container" style="position: relative; height: 400px; width: 100%;">
-                                        <canvas id="incomeExpenseChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End SECTION 2.5 -->
-                
-                <!-- Income vs Expense Chart Script -->
-                <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    var chartElement = document.getElementById('incomeExpenseChart');
-                    if (chartElement) {
-                        var ctx2 = chartElement.getContext('2d');
-                        new Chart(ctx2, {
-                            type: 'bar',
-                            data: {
-                                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                                datasets: [
-                                    {
-                                        label: 'Income',
-                                        data: [200, 300, 250, 400, 350, 500, 450],
-                                        backgroundColor: 'rgba(40,167,69,0.7)'
-                                    },
-                                    {
-                                        label: 'Expense',
-                                        data: [150, 200, 180, 220, 210, 300, 280],
-                                        backgroundColor: 'rgba(220,53,69,0.7)'
-                                    }
-                                ]
-                            },
-                            options: {
-                                responsive: true,
-                                maintainAspectRatio: false,
-                                plugins: { 
-                                    legend: { display: true, position: 'top' },
-                                    tooltip: { mode: 'index', intersect: false }
-                                },
-                                scales: { 
-                                    y: { 
-                                        beginAtZero: true,
-                                        ticks: {
-                                            callback: function(value) {
-                                                return '₹' + value.toLocaleString('en-IN');
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        });
-                    } else {
-                        console.warn('Canvas element with ID "incomeExpenseChart" not found. Chart will not be rendered.');
-                    }
-                });
-                </script>
                 
                 <!-- SECTION 3: KHATA & CREDIT MANAGEMENT -->
                 <div class="container my-5">
@@ -623,26 +562,9 @@
                                 // Show success message
                                 showAlert(`Expense of ₹${formattedAmount} for ${expenseBrief} added successfully`, 'success');
                                 
-                                // Update the expenses display with new data
-                                if (data.updatedData) {
-                                    // Update today's expenses if the element exists
-                                    const todayExpenseElement = document.querySelector('.card-title:contains("Today\'s Expenses")').closest('.card-body').querySelector('h3.text-danger');
-                                    if (todayExpenseElement) {
-                                        todayExpenseElement.textContent = `₹${data.updatedData.todayExpenses.toLocaleString('en-IN', {
-                                            minimumFractionDigits: 2,
-                                            maximumFractionDigits: 2
-                                        })}`;
-                                    }
-                                    
-                                    // Update total expenses if the element exists
-                                    const totalExpenseElement = document.querySelector('.card-title:contains("Total Expenses")').closest('.card-body').querySelector('h3.text-danger');
-                                    if (totalExpenseElement) {
-                                        totalExpenseElement.textContent = `₹${data.updatedData.totalExpenses.toLocaleString('en-IN', {
-                                            minimumFractionDigits: 2,
-                                            maximumFractionDigits: 2
-                                        })}`;
-                                    }
-                                }
+                                // Refresh the data displays
+                                loadTodayExpensesData();
+                                loadMaintenanceExpensesData();
                             })
                             .catch(error => {
                                 console.error('Error adding expense:', error);
@@ -720,33 +642,8 @@
                                 // Show success message
                                 showAlert(`Supplier Khata for ${supplierName} with amount ₹${formattedAmount} added successfully`, 'success');
                                 
-                                // Update the supplier khata pending display with new data
-                                if (data.updatedData) {
-                                    // Update total supplier khata pending if the element exists
-                                    const supplierKhataPendingElement = document.querySelector('.card-title:contains("Total Supplier Khata Pending")').closest('.card-body').querySelector('h3.text-danger');
-                                    if (supplierKhataPendingElement) {
-                                        supplierKhataPendingElement.textContent = `₹${data.updatedData.totalSupplierKhataPending.toLocaleString('en-IN', {
-                                            minimumFractionDigits: 2,
-                                            maximumFractionDigits: 2
-                                        })}`;
-                                    }
-                                    
-                                    // Update upcoming due dates if needed
-                                    if (data.updatedData.upcomingDueDates && data.updatedData.upcomingDueDates.length > 0) {
-                                        const upcomingDuesElement = document.querySelector('.card-title:contains("Upcoming Due Dates")').closest('.card-body').querySelector('ul.list-group');
-                                        if (upcomingDuesElement) {
-                                            upcomingDuesElement.innerHTML = data.updatedData.upcomingDueDates.map(due => `
-                                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                                    <span>${due.supplier_name}</span>
-                                                    <div>
-                                                        <span class="badge bg-danger">₹${due.amount.toLocaleString('en-IN')}</span>
-                                                        <small class="ms-2 text-muted">${new Date(due.due_date).toLocaleDateString()}</small>
-                                                    </div>
-                                                </li>
-                                            `).join('') || '<li class="list-group-item d-flex justify-content-between align-items-center px-0"><span>No upcoming dues</span></li>';
-                                        }
-                                    }
-                                }
+                                // Refresh the supplier khata data
+                                refreshSupplierKhataData();
                             })
                             .catch(error => {
                                 console.error('Error adding supplier khata:', error);
@@ -1392,12 +1289,12 @@
     
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/chart.min.js"></script>
     <script src="assets/js/bs-init.js"></script>
     <script src="assets/js/Billing-Table-with-Add-Row--Fixed-Header-Feature-Billing-Table-with-Add-Row--Fixed-Header.js"></script>
     <script src="assets/js/Profile-Edit-Form-profile.js"></script>
     <script src="assets/js/theme.js"></script>
     <script src="assets/js/topnav.js"></script>
+    <script src="assets/js/logout.js"></script>
     
     <!-- Customer Khata Modal Script -->
     <script>
@@ -2324,35 +2221,26 @@
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </div>
-                        <div class="mt-2">Loading expenses data...</div>
+                        <div class="mt-2">Loading today's expenses data...</div>
                     </td>
                 </tr>
             `;
             
-            // Get today's date in YYYY-MM-DD format
-            const today = new Date().toISOString().split('T')[0];
-            
-            // Fetch maintenance expenses data and filter for today
-            fetch('/finance/api/maintenance-expenses')
+            // Fetch today's expenses data directly from the API
+            fetch('/finance/api/today-expenses')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
                     return response.json();
                 })
-                .then(data => {
-                    // Filter for today's expenses only
-                    const todayExpenses = data.filter(item => {
-                        const itemDate = new Date(item.entry_date).toISOString().split('T')[0];
-                        return itemDate === today;
-                    });
-                    
+                .then(todayExpenses => {
                     if (todayExpenses.length === 0) {
                         tableBody.innerHTML = `
                             <tr>
                                 <td colspan="5" class="text-center py-3">
                                     <div class="alert alert-info mb-0">
-                                        <i class="fas fa-info-circle me-2"></i> No expenses recorded.
+                                        <i class="fas fa-info-circle me-2"></i> No expenses recorded for today.
                                     </div>
                                 </td>
                             </tr>
@@ -2379,45 +2267,49 @@
                                 <td>${item.brief}</td>
                                 <td class="text-danger fw-bold">₹${amount.toLocaleString('en-IN', {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-info text-white view-receipt-btn" data-expense-id="${item.id}">
-                                        <i class="fas fa-receipt"></i> View Receipt
+                                    <button class="btn btn-sm btn-info text-white" title="Edit Expense">
+                                        <i class="fas fa-edit"></i>
                                     </button>
                                 </td>
                             </tr>
                         `;
                     });
                     
-                    // Add a total row
+                    // Add total row
                     html += `
-                        <tr class="table-secondary">
-                            <td colspan="3" class="text-end fw-bold">Total:</td>
-                            <td colspan="2" class="text-danger fw-bold">₹${totalTodayExpense.toLocaleString('en-IN', {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
+                        <tr class="table-success">
+                            <td colspan="3" class="fw-bold">Total Today's Expenses</td>
+                            <td class="fw-bold text-success">₹${totalTodayExpense.toLocaleString('en-IN', {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
+                            <td></td>
                         </tr>
                     `;
                     
                     tableBody.innerHTML = html;
-                    
-                    // Update the Today's Expenses card
-                    const todayExpensesCardTitle = querySelectorContains('.card-title', 'Today\'s Expenses');
-                    if (todayExpensesCardTitle) {
-                        const todayExpensesElement = todayExpensesCardTitle.closest('.card-body').querySelector('h3.text-danger');
-                        if (todayExpensesElement) {
-                            todayExpensesElement.textContent = `₹${totalTodayExpense.toLocaleString('en-IN', {minimumFractionDigits:2, maximumFractionDigits:2})}`;
-                        }
-                    }
                 })
                 .catch(error => {
-                    console.error('Error fetching expenses data:', error);
+                    console.error('Error loading today\'s expenses data:', error);
                     tableBody.innerHTML = `
                         <tr>
                             <td colspan="5" class="text-center py-3">
                                 <div class="alert alert-danger mb-0">
-                                    <i class="fas fa-exclamation-circle me-2"></i> Error loading data. Please try again.
+                                    <i class="fas fa-exclamation-triangle me-2"></i> Error loading expenses data. Please try again.
                                 </div>
                             </td>
                         </tr>
                     `;
                 });
+        }
+        
+        // Function to filter expenses by selected date
+        function filterExpensesByDate() {
+            // This function can be implemented to filter by date
+            console.log('Filter by date functionality');
+        }
+        
+        // Function to show all expenses
+        function showAllExpensesData() {
+            // This function can be implemented to show all expenses
+            console.log('Show all expenses functionality');
         }
     });
     </script>

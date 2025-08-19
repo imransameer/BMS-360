@@ -8,27 +8,27 @@ const bcrypt = require('bcrypt');
 const config = require('../config/config');
 
 /**
- * Render the add employee form page (requires admin authentication)
+ * Render the add employee form page (requires admin or HR authentication)
  * @param {object} req - Express request object
  * @param {object} res - Express response object
  */
 const renderAddEmployeePage = (req, res) => {
     try {
-        // Check authentication and admin privileges
+        // Check authentication
         if (!req.session || !req.session.user) {
             return res.redirect('/auth/login');
         }
 
-        // Check if user has admin privileges (assuming isAdmin field exists)
-        if (!req.session.user.isAdmin) {
+        // Check if user has admin privileges OR is HR employee
+        if (!req.session.user.isAdmin && req.session.user.department !== 'HR') {
             loggerModule.security.unauthorizedAccess(
                 req.ip,
                 req.path,
-                'non_admin_employee_page_access',
+                'non_admin_non_hr_employee_page_access',
                 { userId: req.session.user.id }
             );
             return res.status(403).render('error', {
-                message: 'Access denied. Admin privileges required.',
+                message: 'Access denied. Admin or HR privileges required.',
                 error: { status: 403 }
             });
         }
@@ -44,13 +44,13 @@ const renderAddEmployeePage = (req, res) => {
 };
 
 /**
- * Handle adding a new employee to the database (requires admin authentication)
+ * Handle adding a new employee to the database (requires admin or HR authentication)
  * @param {object} req - Express request object
  * @param {object} res - Express response object
  */
 const addNewEmployee = async (req, res) => {
     try {
-        // Check authentication and admin privileges
+        // Check authentication
         if (!req.session || !req.session.user) {
             loggerModule.security.unauthorizedAccess(
                 req.ip,
@@ -63,16 +63,17 @@ const addNewEmployee = async (req, res) => {
             });
         }
 
-        if (!req.session.user.isAdmin) {
+        // Check if user has admin privileges OR is HR employee
+        if (!req.session.user.isAdmin && req.session.user.department !== 'HR') {
             loggerModule.security.unauthorizedAccess(
                 req.ip,
                 req.path,
-                'non_admin_add_employee',
+                'non_admin_non_hr_add_employee',
                 { userId: req.session.user.id }
             );
             return res.status(403).json({
                 success: false,
-                error: 'Access denied. Admin privileges required.'
+                error: 'Access denied. Admin or HR privileges required.'
             });
         }
 

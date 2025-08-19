@@ -16,6 +16,18 @@ const isAuthenticated = (req, res, next) => {
 
 // Middleware for employee routing restrictions
 const employeeRoutingRestrictions = (req, res, next) => {
+    // Skip restrictions for public routes
+    const publicPaths = ['/login', '/register', '/auth/login', '/auth/register'];
+    const isPublicAsset = req.path.startsWith('/assets/') || 
+                         req.path.startsWith('/css/') || 
+                         req.path.startsWith('/js/') ||
+                         req.path.startsWith('/fonts/') ||
+                         req.path.startsWith('/img/');
+    
+    if (publicPaths.includes(req.path) || isPublicAsset) {
+        return next();
+    }
+
     const user = req.session.user;
     
     // Skip restriction for admin users
@@ -33,6 +45,8 @@ const employeeRoutingRestrictions = (req, res, next) => {
             
             // Redirect based on department
             switch(user.department) {
+                case 'HR':
+                    return res.redirect('/employee');
                 case 'Sales':
                     return res.redirect('/sales');
                 case 'Inventory':
@@ -51,18 +65,6 @@ const employeeRoutingRestrictions = (req, res, next) => {
                         }
                     });
             }
-        }
-        
-        // Profile access is restricted for employees
-        if (req.path === '/profile' || req.path.startsWith('/profile/')) {
-            console.log('Employee tried to access profile, access denied');
-            return res.status(403).render('error', {
-                message: 'Access Denied',
-                error: { 
-                    status: 403, 
-                    stack: 'Employees do not have access to profile management.' 
-                }
-            });
         }
     }
     

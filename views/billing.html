@@ -30,11 +30,18 @@
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="/profile"><i class="fas fa-user"></i><span>Profile</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="/employee"><i class="fas fa-table"></i><span>Employee</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/employee"><i class="fas fa-users fa-fw me-2"></i><span>Employee</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="/inventory"><i class="fas fa-boxes fa-fw me-2"></i><span>Inventory</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="/billing"> <i class="fas fa-file-invoice-dollar fa-fw me-2"></i><span>Billing</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="/sales"> <i class="fas fa-chart-bar fa-fw me-2"></i><span>Sales dashboard</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="/finance"><i class="fas fa-money-bill-wave fa-fw me-2"></i><span>fiance dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/finance"><i class="fas fa-money-bill-wave fa-fw me-2"></i><span>Finance dashboard</span></a></li>
+                    <li class="nav-item mt-3">
+                        <hr class="sidebar-divider">
+                        <a class="nav-link text-danger" href="#" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -68,6 +75,25 @@
                                     <span class="me-1 fw-semibold d-none d-sm-inline">Today:</span>
                                     <span class="d-none d-md-inline" id="fullDate">Thursday, July 10, 2025</span>
                                     <span class="d-inline d-md-none" id="shortDate">Jul 10</span>
+                                </div>
+                            </li>
+                            
+                            <!-- Logout Button -->
+                            <li class="nav-item dropdown ms-3">
+                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-user-circle fa-fw text-gray-400 me-2"></i>
+                                    <span class="d-none d-lg-inline text-gray-600 small">User</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end shadow animated--grow-in" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="/profile">
+                                        <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>
+                                        Profile
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#" id="logoutBtn">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>
+                                        Logout
+                                    </a>
                                 </div>
                             </li>
                         </ul>
@@ -477,8 +503,106 @@ document.getElementById("generateBill").onclick = function() {
     .catch(() => alert("Failed to save bill. Try again."));
 };
 
+// Global variable to store business details
+let businessDetails = {
+    businessName: 'BUSINESS 360°',
+    tagline: 'Business Management System', 
+    contactAddress: 'Your Business Address',
+    email: 'info@business360.com'
+};
+
+// Function to fetch business details
+async function fetchBusinessDetails() {
+    try {
+        const response = await fetch('/billing/api/business-details');
+        if (response.ok) {
+            const result = await response.json();
+            if (result.success && result.data) {
+                businessDetails = {
+                    businessName: result.data.businessName || 'BUSINESS 360°',
+                    tagline: result.data.tagline || 'Business Management System',
+                    contactAddress: result.data.contactAddress || 'Your Business Address',
+                    email: result.data.email || 'info@business360.com'
+                };
+                console.log('Business details loaded:', businessDetails);
+                return;
+            }
+        }
+        console.warn('Could not fetch business details, using defaults');
+    } catch (error) {
+        console.warn('Error fetching business details:', error);
+        console.log('Using default business details');
+    }
+    
+    // Ensure we always have valid defaults
+    businessDetails = {
+        businessName: 'BUSINESS 360°',
+        tagline: 'Business Management System',
+        contactAddress: 'Your Business Address', 
+        email: 'info@business360.com'
+    };
+}
+
+// Load business details when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    fetchBusinessDetails();
+});
+
+// Debug PDF generation function
+function debugPDFGeneration() {
+    console.log("Starting PDF debug test...");
+    
+    try {
+        // Check jsPDF
+        console.log("1. Checking jsPDF:", typeof window.jspdf);
+        if (typeof window.jspdf === 'undefined') {
+            console.error("jsPDF not loaded!");
+            alert("jsPDF library not loaded!");
+            return false;
+        }
+        
+        // Create PDF instance
+        console.log("2. Creating PDF instance...");
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        console.log("PDF instance created:", doc);
+        
+        // Test basic text
+        console.log("3. Adding text...");
+        doc.setFontSize(16);
+        doc.text("Test Document", 20, 20);
+        
+        // Test currency symbol alternative
+        console.log("4. Testing currency...");
+        doc.text("Rs. 100.00", 20, 40);
+        
+        // Test special characters
+        console.log("5. Testing filtered text...");
+        const testText = "BUSINESS 360°".replace(/[^\x20-\x7E]/g, ' ');
+        doc.text("Original: BUSINESS 360°", 20, 60);
+        doc.text("Filtered: " + testText, 20, 80);
+        
+        // Save
+        console.log("6. Saving PDF...");
+        doc.save("debug-test.pdf");
+        
+        console.log("✅ PDF debug test successful!");
+        alert("✅ Debug PDF generated successfully! Check your downloads.");
+        return true;
+        
+    } catch (error) {
+        console.error("❌ PDF debug test failed:", error);
+        console.error("Error details:", error.message, error.stack);
+        alert("❌ Debug PDF failed: " + error.message);
+        return false;
+    }
+}
+
+// Make debug function available in console
+window.debugPDFGeneration = debugPDFGeneration;
+
 // Generate and Download PDF
-document.getElementById("printBill").onclick = function() {
+document.getElementById("printBill").onclick = async function() {
     if (billItems.length === 0) {
         alert("Please generate a bill first.");
         return;
@@ -491,11 +615,22 @@ document.getElementById("printBill").onclick = function() {
             return;
         }
         
+        // Ensure business details are loaded before PDF generation
+        console.log("Current business details:", businessDetails);
+        if (!businessDetails || !businessDetails.businessName) {
+            console.log("Business details not loaded, fetching now...");
+            await fetchBusinessDetails();
+        }
+        
+        console.log("Starting PDF generation with business details:", businessDetails);
+        
         // Get customer details
-        const customerName = document.getElementById("customerName").value || 'N/A';
-        const customerPhone = document.getElementById("customerPhone").value || 'N/A';
-        const customerAgeGroup = document.getElementById("customerAgeGroup").value || 'N/A';
-        const paymentMethod = document.getElementById("paymentMethod").value || 'Cash';
+        const customerName = String(document.getElementById("customerName").value || 'N/A').replace(/[^\x20-\x7E]/g, ' ').trim() || 'N/A';
+        const customerPhone = String(document.getElementById("customerPhone").value || 'N/A').replace(/[^\x20-\x7E]/g, ' ').trim() || 'N/A';
+        const customerAgeGroup = String(document.getElementById("customerAgeGroup").value || 'N/A').replace(/[^\x20-\x7E]/g, ' ').trim() || 'N/A';
+        const paymentMethod = String(document.getElementById("paymentMethod").value || 'Cash').replace(/[^\x20-\x7E]/g, ' ').trim() || 'Cash';
+        
+        console.log("Customer details:", { customerName, customerPhone, customerAgeGroup, paymentMethod });
         
         // Generate invoice ID early for use throughout PDF
         const pdfInvoiceId = "INV-" + Date.now().toString().slice(-6);
@@ -538,11 +673,16 @@ document.getElementById("printBill").onclick = function() {
         doc.setTextColor(255, 255, 255);
         doc.setFontSize(24);
         doc.setFont("helvetica", "bold");
-        doc.text("BUSINESS 360°", 45, 20);
+        // Ensure proper text encoding by limiting special characters
+        const businessName = String(businessDetails.businessName || 'BUSINESS 360').replace(/[^\x20-\x7E]/g, ' ').toUpperCase().trim();
+        console.log("Business name for PDF:", businessName);
+        doc.text(businessName, 45, 20);
         
         doc.setFontSize(14);
         doc.setFont("helvetica", "normal");
-        doc.text("Business Management System", 45, 28);
+        const tagline = String(businessDetails.tagline || 'Business Management System').replace(/[^\x20-\x7E]/g, ' ').trim();
+        console.log("Tagline for PDF:", tagline);
+        doc.text(tagline, 45, 28);
         
         // Invoice Title (Right side)
         doc.setFontSize(28);
@@ -572,9 +712,13 @@ document.getElementById("printBill").onclick = function() {
         // Company Address
         doc.setFontSize(10);
         doc.setTextColor(darkGray[0], darkGray[1], darkGray[2]);
-        doc.text("Address: Your Business Address", 20, 50);
+        const address = String(businessDetails.contactAddress || 'Your Business Address').replace(/[^\x20-\x7E]/g, ' ').trim();
+        const email = String(businessDetails.email || 'info@business360.com').replace(/[^\x20-\x7E]/g, ' ').trim();
+        console.log("Address for PDF:", address);
+        console.log("Email for PDF:", email);
+        doc.text("Address: " + address, 20, 50);
         doc.text("Phone: +91 XXXXX XXXXX", 20, 57);
-        doc.text("Email: info@business360.com", 20, 64);
+        doc.text("Email: " + email, 20, 64);
         doc.text("GST: 27AABCU9603R1ZX", 20, 71);
         
         // Bill To Section
@@ -591,15 +735,13 @@ document.getElementById("printBill").onclick = function() {
         doc.setFont("helvetica", "bold");
         doc.text("Customer:", 25, 108);
         doc.text("Phone:", 25, 116);
-        doc.text("Age Group:", 25, 124);
         
         doc.setFont("helvetica", "normal");
         doc.text(customerName, 55, 108);
         doc.text(customerPhone, 55, 116);
-        doc.text(customerAgeGroup, 55, 124);
         
         // Items Table
-        let tableStartY = 140;
+        let tableStartY = 130;
         
         // Table Header
         doc.setFillColor(primaryColor[0], primaryColor[1], primaryColor[2]);
@@ -630,14 +772,15 @@ document.getElementById("printBill").onclick = function() {
             }
             
             // Item details
-            const itemName = item.name.length > 35 ? item.name.substring(0, 32) + '...' : item.name;
+            const itemName = String(item.name || 'Unknown Item').replace(/[^\x20-\x7E]/g, ' ');
+            const displayName = itemName.length > 35 ? itemName.substring(0, 32) + '...' : itemName;
             doc.setFont("helvetica", "normal");
-            doc.text(itemName, 25, yPos);
+            doc.text(displayName, 25, yPos);
             
             // Price, quantity, and total
-            doc.text("₹" + price.toLocaleString('en-IN', { minimumFractionDigits: 2 }), 115, yPos);
+            doc.text("Rs." + price.toLocaleString('en-IN', { minimumFractionDigits: 2 }), 115, yPos);
             doc.text(item.qty.toString(), 145, yPos, { align: 'center' });
-            doc.text("₹" + itemTotal.toLocaleString('en-IN', { minimumFractionDigits: 2 }), 185, yPos, { align: 'right' });
+            doc.text("Rs." + itemTotal.toLocaleString('en-IN', { minimumFractionDigits: 2 }), 185, yPos, { align: 'right' });
             
             yPos += 10;
         });
@@ -658,16 +801,16 @@ document.getElementById("printBill").onclick = function() {
         
         // Subtotal
         doc.text("Subtotal:", 125, summaryStartY + 8);
-        doc.text("₹" + subtotal.toLocaleString('en-IN', { minimumFractionDigits: 2 }), 185, summaryStartY + 8, { align: 'right' });
+        doc.text("Rs." + subtotal.toLocaleString('en-IN', { minimumFractionDigits: 2 }), 185, summaryStartY + 8, { align: 'right' });
         
         // GST
         doc.text("GST (18%):", 125, summaryStartY + 16);
-        doc.text("₹" + gst.toLocaleString('en-IN', { minimumFractionDigits: 2 }), 185, summaryStartY + 16, { align: 'right' });
+        doc.text("Rs." + gst.toLocaleString('en-IN', { minimumFractionDigits: 2 }), 185, summaryStartY + 16, { align: 'right' });
         
         // Discount
         if (discount > 0) {
             doc.text("Discount:", 125, summaryStartY + 24);
-            doc.text("-₹" + discount.toLocaleString('en-IN', { minimumFractionDigits: 2 }), 185, summaryStartY + 24, { align: 'right' });
+            doc.text("-Rs." + discount.toLocaleString('en-IN', { minimumFractionDigits: 2 }), 185, summaryStartY + 24, { align: 'right' });
         }
         
         // Total
@@ -679,7 +822,7 @@ document.getElementById("printBill").onclick = function() {
         doc.setFont("helvetica", "bold");
         doc.setTextColor(accentColor[0], accentColor[1], accentColor[2]);
         doc.text("TOTAL:", 125, summaryStartY + 36);
-        doc.text("₹" + grandTotal.toLocaleString('en-IN', { minimumFractionDigits: 2 }), 185, summaryStartY + 36, { align: 'right' });
+        doc.text("Rs." + grandTotal.toLocaleString('en-IN', { minimumFractionDigits: 2 }), 185, summaryStartY + 36, { align: 'right' });
         
         // Amount in Words
         const amountInWords = numberToWords(Math.round(grandTotal));
@@ -696,12 +839,13 @@ document.getElementById("printBill").onclick = function() {
         doc.setTextColor(255, 255, 255);
         doc.setFontSize(11);
         doc.setFont("helvetica", "bold");
-        doc.text("Thank You for Your Business!", 105, footerY + 8, { align: 'center' });
+        doc.text("Thank You for purchasing !", 105, footerY + 8, { align: 'center' });
         
         doc.setFontSize(9);
         doc.setFont("helvetica", "normal");
         doc.text("This is a computer generated invoice", 105, footerY + 15, { align: 'center' });
-        doc.text("Powered by Business 360° Management System", 105, footerY + 20, { align: 'center' });
+        const footerBusinessName = String(businessDetails.businessName || 'BUSINESS 360').replace(/[^\x20-\x7E]/g, ' ').trim();
+        doc.text("Powered by " + footerBusinessName + " Management System", 105, footerY + 20, { align: 'center' });
         
         // Generate professional filename
         const today = new Date();
@@ -713,11 +857,13 @@ document.getElementById("printBill").onclick = function() {
         doc.save(filename);
         
         // Show success message with invoice details
-        alert(`✅ Invoice Generated Successfully!\n\nInvoice ID: ${pdfInvoiceId}\nCustomer: ${customerName}\nAmount: ₹${grandTotal.toFixed(2)}\n\nPDF downloaded as: ${filename}`);
+        alert(`✅ Invoice Generated Successfully!\n\nInvoice ID: ${pdfInvoiceId}\nCustomer: ${customerName}\nAmount: Rs.${grandTotal.toFixed(2)}\n\nPDF downloaded as: ${filename}`);
         
     } catch (error) {
         console.error("PDF generation error:", error);
-        alert("Failed to generate PDF. Please try again or contact support.");
+        console.error("Error stack:", error.stack);
+        console.error("Error message:", error.message);
+        alert(`Failed to generate PDF. Error: ${error.message}\nPlease check the console for more details and try again.`);
     }
 };
 // New Bill button logic
@@ -769,6 +915,7 @@ document.addEventListener('click', function(e) {
     <script src="assets/js/Profile-Edit-Form-profile.js"></script>
     <script src="assets/js/theme.js"></script>
     <script src="assets/js/topnav.js"></script>
+    <script src="assets/js/logout.js"></script>
 
 </body>
 

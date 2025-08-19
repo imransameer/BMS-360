@@ -1,10 +1,43 @@
 const express = require('express');
 const router = express.Router();
 const inventory = require('../controllers/inventory_control');
-const { isEmployee } = require('../middleware/auth');
+const { hasAccess } = require('../middleware/auth');
 
-// Apply simple authentication - both admin and employees can access inventory
-router.use(isEmployee);
+// Apply department-based access control - allow admin, inventory, billing, and finance employees
+router.use((req, res, next) => {
+    const user = req.session.user;
+    
+    // If user is admin, allow access
+    if (user && user.isAdmin) {
+        console.log('User is admin, access granted to inventory');
+        return next();
+    }
+    
+    // If user is Inventory employee, allow access
+    if (user && user.department === 'Inventory') {
+        console.log('User is inventory employee, access granted');
+        return next();
+    }
+    
+    // If user is Billing employee, allow access (they need inventory data for billing)
+    if (user && user.department === 'Billing') {
+        console.log('User is billing employee, access granted to inventory');
+        return next();
+    }
+    
+    // If user is Finance employee, allow access (they need inventory data for financial analysis)
+    if (user && user.department === 'Finance') {
+        console.log('User is finance employee, access granted to inventory');
+        return next();
+    }
+    
+    console.log('Access denied for user to inventory');
+    // Otherwise, deny access
+    res.status(403).render('error', {
+        message: 'Access Denied',
+        error: { status: 403, stack: 'You do not have permission to access inventory management.' }
+    });
+});
 
 // API endpoint to update stock (optional, for admin/manual use)
 router.post('/update-stock', inventory.updateStock);

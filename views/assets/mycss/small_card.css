@@ -1,0 +1,77 @@
+/* Small Card Styles for Employee Forms */
+.small-card {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-bottom: 20px;
+    border: none;
+}
+
+.small-card .card-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 10px 10px 0 0;
+    padding: 20px 30px;
+    border: none;
+    margin: -30px -30px 30px -30px;
+}
+
+.small-card .card-title {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.form-floating label {
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 10px;
+    padding: 12px 30px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    border-radius: 10px;
+    padding: 12px 30px;
+    font-weight: 500;
+}
+
+.alert {
+    border-radius: 10px;
+    border: none;
+    padding: 15px 20px;
+}
+
+.text-primary {
+    color: #667eea !important;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .small-card {
+        padding: 20px;
+        margin: 10px 0;
+    }
+    
+    .small-card .card-header {
+        margin: -20px -20px 20px -20px;
+        padding: 15px 20px;
+    }
+}

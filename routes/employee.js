@@ -1,14 +1,34 @@
 const express = require('express');
 const router = express.Router();
 const employee = require('../controllers/employee_control');
-const { isAdmin } = require('../middleware/auth');
+const { isAdmin, hasAccess } = require('../middleware/auth');
 
-// Apply admin-only access control
-// Only admin users can access employee management
-router.use(isAdmin);
+// Allow both admin and HR employees to access employee management
+router.use((req, res, next) => {
+    // If user is admin, allow access
+    if (req.session && req.session.user && req.session.user.isAdmin) {
+        return next();
+    }
+    
+    // If user is HR employee, allow access
+    if (req.session && req.session.user && req.session.user.department === 'HR') {
+        return next();
+    }
+    
+    // Otherwise, deny access
+    res.status(403).render('error', {
+        message: 'Access Denied',
+        error: { status: 403, stack: 'You do not have permission to access employee management.' }
+    });
+});
 
 // Route for employee page - now using EJS template with data
 router.get('/', employee.getemployee);
+
+// Route to redirect /employee/add to /new_emp for backward compatibility
+router.get('/add', (req, res) => {
+    res.redirect('/new_emp');
+});
 
 // Route to get employee details by ID
 router.get('/details/:id', employee.getEmployeeById);
